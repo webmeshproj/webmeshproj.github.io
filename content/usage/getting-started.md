@@ -3,7 +3,7 @@ title: Getting Started
 weight: -15
 ---
 
-This page tells you how to get started with the Geekdoc theme, including installation and basic configuration.
+This page tells you how to get started with the Webmesh project.
 
 {{< toc >}}
 

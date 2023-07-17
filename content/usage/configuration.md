@@ -3,7 +3,7 @@ title: Configuration
 weight: -10
 ---
 
-The node can be configured to bootstrap a new cluster or join an existing cluster.
+Each node can be configured to bootstrap a new cluster or join an existing cluster.
 When bootstrapping a new cluster, the node will become the leader of the cluster.
 When joining an existing cluster, the node will attempt to join the cluster by contacting the leader.
 
