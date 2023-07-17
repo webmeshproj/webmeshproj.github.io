@@ -5,7 +5,7 @@ geekdocAlign: center
 geekdocAnchor: false
 ---
 
-Geekdoc is a simple Hugo theme for documentations. It is intentionally designed as a fast and lean theme and may not fit the requirements of complex projects. If a more feature-complete theme is required there are a lot of got alternatives out there.
+Webmesh is a simple, distributed, zero-configuration WireGuard mesh provider for Linux, FreeBSD, macOS, and Windows.
 
 {{< button size="large" relref="usage/getting-started/" >}}Getting Started{{< /button >}}
 
