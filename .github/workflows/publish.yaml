@@ -21,10 +21,10 @@ jobs:
         run: make
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-pages-artifact@v1
         with:
           name: github-pages
-          path: ${{ github.workspace }}/public/**/*
+          path: ${{ github.workspace }}/public/
 
   deploy:
     name: Deploy to GitHub Pages
