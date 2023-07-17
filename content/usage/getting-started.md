@@ -11,10 +11,10 @@ This page tells you how to get started with the Geekdoc theme, including install
 
 ## Install Webmesh Node Binary
 
-The `node` binary is distributed as a docker image or a standalone binary.
+The `node` binary is distributed as a container image or a standalone binary.
 To install the binary, download the latest release for your platform and architecture from the [releases page](https://github.com/webmeshproj/node/releases).
-To run the docker image, pull the latest image from the GitHub container registry.
-The examples in this guide will use the docker image.
+To run the container image, pull the latest image from the GitHub container registry.
+The examples in this guide will use the image.
 
 ## Configuration
 
