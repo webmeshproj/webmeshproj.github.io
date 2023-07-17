@@ -17,6 +17,9 @@ doc-assets:
 doc-build:
 	cd "$(BASEDIR)"; hugo
 
+serve: doc-assets
+	cd "$(BASEDIR)"; hugo server --buildDrafts --buildFuture --disableFastRender
+
 .PHONY: clean
 clean:
 	rm -rf "$(THEMEDIR)"
