@@ -17,7 +17,7 @@ jobs:
           hugo-version: "latest"
           extended: true
 
-      - name: Build
+      - name: Build Public Assets
         run: make
 
       - name: Upload Artifact
