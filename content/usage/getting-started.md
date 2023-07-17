@@ -1,6 +1,6 @@
 ---
 title: Getting Started
-weight: -20
+weight: -15
 ---
 
 This page tells you how to get started with the Geekdoc theme, including installation and basic configuration.
@@ -9,193 +9,78 @@ This page tells you how to get started with the Geekdoc theme, including install
 
 {{< toc >}}
 
-## Install requirements
+## Install Webmesh Node Binary
 
-You need a recent version of Hugo for local builds and previews of sites that use Geekdoc. As we are using [webpack](https://webpack.js.org/) as pre-processor, the normal version of Hugo is sufficient. If you prefer the extended version of Hugo anyway this will work as well. For comprehensive Hugo documentation, see [gohugo.io](https://gohugo.io/documentation/).
+The `node` binary is distributed as a docker image or a standalone binary.
+To install the binary, download the latest release for your platform and architecture from the [releases page](https://github.com/webmeshproj/node/releases).
+To run the docker image, pull the latest image from the GitHub container registry.
+The examples in this guide will use the docker image.
 
-If you want to use the theme from a cloned branch instead of a release tarball you'll need to install `webpack` locally and run the build script once to create all required assets.
+## Configuration
 
-```shell
-# install required packages from package.json
-npm install
+Configuration can be supplied via a configuration file, environment variables, or command line flags.
+You can choose to use any combination of these methods.
+To see all available configuration options, run `node --help`.
 
-# run the build script to build required assets
-npm run build
+When using a configuration file, the file can be in TOML, YAML, or JSON format.
+It is first interpreted as a go-template with the following additional functions:
 
-# build release tarball
-npm run pack
+- `env` - returns the value of the environment variable with the given name.
+- `file` - returns the contents of the file with the given name.
+
+After templating is complete, the file is parsed as the given format.
+
+## Bootstrap a New Network
+
+If you'd like to play with the project on Kubernetes, there is a work-in-progress controller in the [operator](https://github.com/webmeshproj/operator/) repository.
+It works fine on most clusters, including ephemeral docker-based ones, but is not yet ready for production use.
+
+A simple bootstrap node may be started with the following command:
+
+```bash
+# You can remove the --global.no-ipv6 flag if you have IPv6 connectivity on your docker network.
+docker run --rm --privileged --name=bootstrap-node ghcr.io/webmeshproj/node:latest \
+    --global.insecure \
+    --global.no-ipv6 \
+    --global.detect-endpoints \
+    --global.detect-private-endpoints \
+    --bootstrap.enabled
 ```
 
-## Using the theme
+All that is required above is the `--bootstrap.enabled` flag.
+The others are optional, but useful for testing purposes.
+The `--global.insecure` flag disables authentication and authorization. This is not recommended for production use.
 
-To prepare your new site environment just a few steps are required:
+Raft data by default is stored in the `/var/lib/webmesh/store` directory.
+This can be changed by setting the `--raft.data-dir` flag.
+You can also choose to run a node completely in-memory by setting the `--raft.in-memory` flag.
 
-1. Create a new empty Hugo site.
+By default the following ports are used for communication between nodes:
 
-   ```shell
-   hugo new site demosite
-   ```
+| Port  | Protocol | Description |
+| ----- | -------- | ----------- |
+| 8443  | gRPC     | API         |
+| 9443  | TCP      | Raft        |
+| 51820 | UDP      | WireGuard   |
 
-2. Switch to the root of the new site.
+These are configurable via the `--services.listen-address`, `--raft.listen-address`, and `--wireguard.listen-port` flags respectively.
 
-   ```shell
-   cd demosite
-   ```
+## Join a Network
 
-3. Install the Geekdoc theme from a [release bundle](#option-1-download-pre-build-release-bundle) (recommended) or from [Git branch](#option-2-clone-the-github-repository).
+You can connect another container to the network by running the following command:
 
-4. Create the minimal required Hugo configuration `config.toml`. For all configuration options take a look at the [configuration](/usage/configuration/) page.
-
-   ```toml
-   baseURL = "http://localhost"
-   title = "Geekdocs"
-   theme = "hugo-geekdoc"
-
-   pluralizeListTitles = false
-
-   # Geekdoc required configuration
-   pygmentsUseClasses = true
-   pygmentsCodeFences = true
-   disablePathToLower = true
-
-   # Required if you want to render robots.txt template
-   enableRobotsTXT = true
-
-   # Needed for mermaid shortcodes
-   [markup]
-     [markup.goldmark.renderer]
-       # Needed for mermaid shortcode
-       unsafe = true
-     [markup.tableOfContents]
-       startLevel = 1
-       endLevel = 9
-
-   [taxonomies]
-      tag = "tags"
-   ```
-
-5. Test your site.
-
-   ```shell
-   hugo server -D
-   ```
-
-### Option 1: Download pre-build release bundle
-
-Download and extract the latest release bundle into the theme directory.
-
-```shell
-mkdir -p themes/hugo-geekdoc/
-curl -L https://github.com/thegeeklab/hugo-geekdoc/releases/latest/download/hugo-geekdoc.tar.gz | tar -xz -C themes/hugo-geekdoc/ --strip-components=1
+```bash
+docker run --rm --privileged ghcr.io/webmeshproj/node:latest \
+    --global.insecure \
+    --global.no-ipv6 \
+    --mesh.join-address=bootstrap-node:8443
 ```
 
-### Option 2: Clone the GitHub repository
+Depending on your docker network configuration, you may need to use the IP address of the bootstrap node instead of its hostname.
 
-{{< hint type=note >}}
-**Info**\
-Keep in mind this method is not recommended and needs some extra steps to get it working.
-If you want to use the Theme as submodule keep in mind that your build process need to
-run the described steps as well.
-{{< /hint >}}
+The `wmctl` utility distributed with the `node` binary can also be used to connect and/or query the APIs.
+To start a WireGuard connection to the network:
 
-Clone the Geekdoc git repository.
-
-```shell
-git clone https://github.com/thegeeklab/hugo-geekdoc.git themes/hugo-geekdoc
-```
-
-Build required theme assets e.g. CSS files and SVG sprites.
-
-```shell
-npm install
-npm run build
-```
-
-## Deployments
-
-### Netlify
-
-There are several ways to deploy your site with this theme on Netlify. Regardless of which solution you choose, the main goal is to ensure that the prebuilt theme release tarball is used or to run the [required commands](#option-2-clone-the-github-repository) to prepare the theme assets before running the Hugo build command.
-
-Here are some possible solutions:
-
-**Use a Makefile:**
-
-Add a Makefile to your repository to bundle the required steps.
-
-```makefile
-THEME_VERSION := v0.8.2
-THEME := hugo-geekdoc
-BASEDIR := docs
-THEMEDIR := $(BASEDIR)/themes
-
-.PHONY: doc
-doc: doc-assets doc-build
-
-.PHONY: doc-assets
-doc-assets:
-   mkdir -p $(THEMEDIR)/$(THEME)/ ; \
-   curl -sSL "https://github.com/thegeeklab/$(THEME)/releases/download/${THEME_VERSION}/$(THEME).tar.gz" | tar -xz -C $(THEMEDIR)/$(THEME)/ --strip-components=1
-
-.PHONY: doc-build
-doc-build:
-        cd $(BASEDIR); hugo
-
-.PHONY: clean
-clean:
-   rm -rf $(THEMEDIR) && \
-   rm -rf $(BASEDIR)/public
-```
-
-This Makefile can be used in your `netlify.toml`, take a look at the Netlify [example](https://docs.netlify.com/configure-builds/file-based-configuration/#sample-netlify-toml-file) for more information:
-
-```toml
-[build]
-publish = "docs/public"
-command = "make doc"
-```
-
-**Chain required commands:**
-
-Chain all required commands to prepare the theme and build your site on the `command` option in your `netlify.toml` like this:
-
-```toml
-[build]
-publish = "docs/public"
-command = "command1 && command 2 && command3 && hugo"
-```
-
-### Subdirectories
-
-{{< hint type=important >}}
-**Warning**\
-As deploying Hugo sites on subdirectories is not as robust as on subdomains, we do not recommend this.
-If you have a choice, using a domain/subdomain should always be the preferred solution!
-{{< /hint >}}
-
-If you want to deploy your site to a subdirectory of your domain, some extra steps are required:
-
-- Configure your Hugo base URL e.g. `baseURL = http://localhost/demo/`.
-- Don't use `relativeURLs: false` nor `canonifyURLs: true` as is can cause unwanted side effects!
-
-There are two ways to get Markdown links or images working:
-
-- Use the absolute path including your subdirectory e.g. `[testlink](/demo/example-site)`
-- Overwrite the HTML base in your site configuration with `geekdocOverwriteHTMLBase = true` and use the relative path e.g. `[testlink](example-site)`
-
-But there is another special case if you use `geekdocOverwriteHTMLBase = true`. If you use anchors in your Markdown links you have to ensure to always include the page path. As an example `[testlink](#some-anchor)` will resolve to `http://localhost/demo/#some-anchor` and not automatically include the current page!
-
-## Known Limitations
-
-### Minify HTML results in spacing issues
-
-Using `hugo --minify` without further configuration or using other minify tools that also minify HTML files might result in spacing issues in the theme and is **not** supported.
-
-After some testing we decided to not spend effort to fix this issue for now as the benefit is very low. There are some parts of the theme where spaces between HTML elements matters but were stripped by minify tools. Some of these issues are related to <!-- spellchecker-disable -->[gohugoio/hugo#6892](https://github.com/gohugoio/hugo/issues/6892).<!-- spellchecker-enable --> While recommendation like "don't depend on whitespace in your layout" sounds reasonable, it seems to be not that straight forward especially for something like embedded icons into the text flow.
-
-If you still want to use Hugo's minify flag you should at least exclude HTML file in your site [configuration](https://gohugo.io/getting-started/configuration/#configure-minify):
-
-```toml
-[minify]
-  disableHTML = true
+```bash
+wmctl connect --insecure --no-ipv6 --join-server=<container_ip>:8443
 ```
