@@ -15,7 +15,7 @@ doc-assets:
 
 .PHONY: doc-build
 doc-build:
-	cd "$(BASEDIR)"; hugo --minify
+	cd "$(BASEDIR)"; hugo
 
 serve: doc-assets
 	cd "$(BASEDIR)"; hugo server --buildDrafts --buildFuture --disableFastRender
