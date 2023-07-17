@@ -1,0 +1,3 @@
+.gdoc-markdown table:not(.lntable):not(.highlight) tr th, .gdoc-markdown table:not(.lntable):not(.highlight) tr td {
+    padding: 0.5em 0.5em;
+}
