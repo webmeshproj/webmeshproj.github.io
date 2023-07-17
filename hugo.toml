@@ -1,4 +1,4 @@
-baseURL = "webmeshproj.github.io"
+baseURL = "https://webmeshproj.github.io/"
 languageCode = 'en-us'
 title = 'Webmesh Project'
 theme = "hugo-geekdoc"
