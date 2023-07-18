@@ -23,4 +23,14 @@ enableRobotsTXT = true
     endLevel = 9
 
 [taxonomies]
-   tag = "tags"
+  tag = "tags"
+
+[params]
+  authorName = "Webmesh Project"
+  email = "test"
+  geekdocRepo = "https://github.com/webmeshproj/webmeshproj.github.io"
+  geekdocDarkModeDim = true
+
+[params.geekdocContentLicense]
+  name = "Apache License 2.0"
+  link = "https://www.apache.org/licenses/LICENSE-2.0"
