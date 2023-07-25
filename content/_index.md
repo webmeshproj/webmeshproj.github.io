@@ -8,7 +8,7 @@ geekdocAnchor: false
 Webmesh is a simple, distributed, zero-configuration WireGuard™ mesh provider for Linux, FreeBSD, macOS, and Windows.
 It is designed to be easy to use, and to work well with existing network infrastructure.
 
-{{< button size="large" relref="usage/getting-started/" >}}Getting Started{{< /button >}}
+{{< button size="large" relref="documentation/getting-started/" >}}Getting Started{{< /button >}}
 
 ## Feature overview
 
