@@ -14,6 +14,8 @@ To install the binary, download the latest release for your platform and archite
 To run the container image, pull the latest image from the GitHub container registry.
 The examples in this guide will use the image.
 
+For more detailed installation instructions for the various supported platforms, see the [installation instructions](/documentation/installation-instructions/).
+
 ## Configuration
 
 Configuration can be supplied via a configuration file, environment variables, or command line flags.

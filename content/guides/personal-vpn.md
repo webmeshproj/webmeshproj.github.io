@@ -30,31 +30,8 @@ This will only work on Linux systems.
 
 ## Install the Webmesh utilities
 
-In this example we are using an `amd64` machine, but you can find other architectures on the [releases page](https://github.com/webmeshproj/node/releases).
-We'll install two executables.
-The `webmesh` utility will be the main node binary.
-We'll also install the `wmctl` utility to generate a PKI for communicating with the node.
-
-```bash
-# Download the node binary
-curl -JLO https://github.com/webmeshproj/node/releases/latest/download/node_linux_amd64
-# Download the wmctl binary
-curl -JLO https://github.com/webmeshproj/node/releases/latest/download/wmctl_linux_amd64
-# Download the checksum
-curl -JLO https://github.com/webmeshproj/node/releases/latest/download/sha256sums.txt
-# Verify the checksum
-sha256sum -c sha256sums.txt --ignore-missing
-# Make the binaries executable
-chmod +x node_linux_amd64 wmctl_linux_amd64
-# Move the binaries to a location in your PATH
-sudo mv node_linux_amd64 /usr/local/bin/webmesh
-sudo mv wmctl_linux_amd64 /usr/local/bin/wmctl
-# Remove the downloaded files
-rm -f sha256sums.txt
-# Ensure the installation was successful
-webmesh --version
-wmctl version
-```
+Refer to the [installation instructions](/documentation/installation-instructions/) for your platform and architecture.
+You'll want to install the tools on both your local machine and the server.
 
 ## Generate a PKI
 
