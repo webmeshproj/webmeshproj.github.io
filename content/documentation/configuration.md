@@ -223,7 +223,6 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 | `--plugins.ldap.user-id-attribute`     | `PLUGINS_LDAP_USER_ID_ATTRIBUTE`     | `plugins.ldap.user-id-attribute`     |         | The attribute to use for the user ID.                                                                                   |
 | `--plugins.ldap.user-status-attribute` | `PLUGINS_LDAP_USER_STATUS_ATTRIBUTE` | `plugins.ldap.user-status-attribute` |         | The attribute to use for the user's disabled status. All users are allowed if left unset.                               |
 | `--plugins.mtls.ca-file`               | `PLUGINS_MTLS_CA_FILE`               | `plugins.mtls.ca-file`               |         | The path to the CA certificate file for mTLS.                                                                           |
-| `--plugins.localstore.data-dir`        | `PLUGINS_LOCALSTORE_DATA_DIR`        | `plugins.localstore.data-dir`        |         | The path to the directory to store the mesh data.                                                                       |
 
 Local executable plugins can be configured with the `--plugins.local` flag or configuration entry.
 These are provided as a list of paths and configurations in the format of `path=/path/to/executable,config1=val1,config2=val2,...`.
