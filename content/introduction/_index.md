@@ -5,9 +5,6 @@ weight: -30
 
 # What is Webmesh?
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/webmeshproj/node)](https://goreportcard.com/report/github.com/webmeshproj/node)
-![Build and Tests](https://github.com/webmeshproj/node/actions/workflows/ci.yaml/badge.svg)
-
 Webmesh is a project that aims to provide a zero-configuration, simple, secure, and scalable way to connect devices and services across the internet.
 It is inspired by several other projects that have emerged over the years such as TailScale, ZeroTier, and OpenZiti.
 Peers connect to eachother either via other peers, a central controller (or combination of controllers), or direct links negotiated via WebRTC.
