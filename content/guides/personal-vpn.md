@@ -88,7 +88,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/webmesh \
+ExecStart=/usr/bin/webmesh-node \
     --global.detect-endpoints \
     --global.detect-private-endpoints \
     --global.mtls \
