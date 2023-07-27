@@ -29,7 +29,7 @@ To verify the image with `cosign`, you can use the following command:
 export COSIGN_EXPERIMENTAL=true
 cosign verify --output=text \
     --certificate-oidc-issuer=https://token.actions.githubusercontent.com \
-    --certificate-identity-regexp="github\.com/webmeshproj/node" \
+    --certificate-identity-regexp="github\.com/webmeshproj/webmesh" \
     ghcr.io/webmeshproj/node:latest
 ```
 
@@ -42,7 +42,7 @@ The packages below all install the following two binaries:
 
 ### Verifying Signature and Checksums
 
-A `checksums.txt` file is available for each release on the [releases page](https://github.com/webmeshproj/node/releases/latest).
+A `checksums.txt` file is available for each release on the [releases page](https://github.com/webmeshproj/webmesh/releases/latest).
 A corresponding `cosign` signature of the file is available as `checksums.txt.sig`.
 The certificate used to sign the file is available as `checksums.txt.sig.cert`.
 
@@ -51,14 +51,14 @@ This is highly recommended until published packages are signed with a GPG key or
 
 ```bash
 # Change this to a specific release version if you'd like
-DOWNLOAD_URL="https://github.com/webmeshproj/node/releases/latest/download"
+DOWNLOAD_URL="https://github.com/webmeshproj/webmesh/releases/latest/download"
 # Download the checksums file
 curl -JLO ${DOWNLOAD_URL}/checksums.txt
 # Verify the signature against the checksums file
 export COSIGN_EXPERIMENTAL=true
 cosign verify-blob \
     --certificate-oidc-issuer=https://token.actions.githubusercontent.com \
-    --certificate-identity-regexp="github\.com/webmeshproj/node" \
+    --certificate-identity-regexp="github\.com/webmeshproj/webmesh" \
     --signature="${DOWNLOAD_URL}/checksums.txt.sig" \
     --certificate="${DOWNLOAD_URL}/checksums.txt.sig.cert" \
     checksums.txt
@@ -89,7 +89,7 @@ brew install webmeshproj/repo/webmesh
 
 ```bash
 # Change this to a specific release version if you'd like
-DOWNLOAD_URL="https://github.com/webmeshproj/node/releases/latest/download"
+DOWNLOAD_URL="https://github.com/webmeshproj/webmesh/releases/latest/download"
 ARCH=$(uname -m)
 
 # Download the release tarball
@@ -110,7 +110,7 @@ Install the latest `deb` package from the releases page.
 ```bash
 # Change this to a specific release version if you'd like
 # Assumes you have jq and curl installed
-VERSION=$(curl -L -s https://api.github.com/repos/webmeshproj/node/releases/latest | jq -r .name)
+VERSION=$(curl -L -s https://api.github.com/repos/webmeshproj/webmesh/releases/latest | jq -r .name)
 # You may need to change the architecture name depending on your platform
 ARCH=$(uname -m)
 if [ "${ARCH}" == "x86_64" ]; then
@@ -120,7 +120,7 @@ elif [ "${ARCH}" == "aarch64" ]; then
 fi
 
 # Download and install the package
-curl -JLO https://github.com/webmeshproj/node/releases/download/${VERSION}/webmesh_${VERSION:1}_linux_${ARCH}.deb
+curl -JLO https://github.com/webmeshproj/webmesh/releases/download/${VERSION}/webmesh_${VERSION:1}_linux_${ARCH}.deb
 sudo dpkg -i webmesh_${VERSION:1}_linux_${ARCH}.deb
 ```
 
@@ -131,7 +131,7 @@ Install the latest `rpm` package from the releases page.
 ```bash
 # Change this to a specific release version if you'd like
 # Assumes you have jq and curl installed
-VERSION=$(curl -L -s https://api.github.com/repos/webmeshproj/node/releases/latest | jq -r .name)
+VERSION=$(curl -L -s https://api.github.com/repos/webmeshproj/webmesh/releases/latest | jq -r .name)
 # You may need to change the architecture name depending on your platform
 ARCH=$(uname -m)
 if [ "${ARCH}" == "x86_64" ]; then
@@ -144,7 +144,7 @@ fi
 dnf -y install epel-release elrepo-release
 
 # Install the package
-dnf -y install https://github.com/webmeshproj/node/releases/download/${VERSION}/webmesh_${VERSION:1}_linux_${ARCH}.rpm
+dnf -y install https://github.com/webmeshproj/webmesh/releases/download/${VERSION}/webmesh_${VERSION:1}_linux_${ARCH}.rpm
 ```
 
 #### Alpine
@@ -154,7 +154,7 @@ Install the latest `apk` package from the releases page.
 ```bash
 # Change this to a specific release version if you'd like
 # Assumes you have jq and curl installed
-VERSION=$(curl -L -s https://api.github.com/repos/webmeshproj/node/releases/latest | jq -r .name)
+VERSION=$(curl -L -s https://api.github.com/repos/webmeshproj/webmesh/releases/latest | jq -r .name)
 # You may need to change the architecture name depending on your platform
 ARCH=$(uname -m)
 if [ "${ARCH}" == "x86_64" ]; then
@@ -164,7 +164,7 @@ elif [ "${ARCH}" == "aarch64" ]; then
 fi
 
 # Install the package
-curl -JLO https://github.com/webmeshproj/node/releases/download/${VERSION}/webmesh_${VERSION:1}_linux_${ARCH}.apk
+curl -JLO https://github.com/webmeshproj/webmesh/releases/download/${VERSION}/webmesh_${VERSION:1}_linux_${ARCH}.apk
 apk add --allow-untrusted webmesh_${VERSION:1}_linux_${ARCH}.apk
 ```
 
@@ -182,7 +182,7 @@ Fetch the latest release tarball from the releases page.
 
 ```bash
 # Change this to a specific release version if you'd like
-DOWNLOAD_URL="https://github.com/webmeshproj/node/releases/latest/download"
+DOWNLOAD_URL="https://github.com/webmeshproj/webmesh/releases/latest/download"
 ARCH=$(uname -m)
 
 # Download the release tarball
@@ -202,8 +202,8 @@ As such, we currently do not provide pre-built binaries for FreeBSD.
 To build the project on FreeBSD, ensure you have `golang` installed and run:
 
 ```bash
-git clone https://github.com/webmeshproj/node.git
-cd node
+git clone https://github.com/webmeshproj/webmesh.git
+cd webmesh
 # Build the webmesh node binary
 CGO_ENABLED=1 go build -o webmesh-node ./cmd/node/main.go
 # Build the wmctl binary
@@ -219,7 +219,7 @@ Better application packaging is planned for the future.
 
 #### Standalone
 
-Go to the [releases page](https://github.com/webmeshproj/node/releases/latest) and download the Windows `zip` package for your architecture.
+Go to the [releases page](https://github.com/webmeshproj/webmesh/releases/latest) and download the Windows `zip` package for your architecture.
 Extract the `zip` file and add the `webmesh-node` and `wmctl` binaries to your `PATH`.
 
 ## Kubernetes

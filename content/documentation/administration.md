@@ -11,7 +11,7 @@ Until better documentation is in place, this document shows the usage of the CLI
 ## Configuring the CLI
 
 The CLI uses a Kubernetes-link configuration syntax with options for command line flags and environment variables.
-For now the structure of the configuration can be found in the source [here](pkg/ctlcmd/config/config.go).
+For now the structure of the configuration can be found in the source [here](https://github.com/webmeshproj/webmesh/blob/main/pkg/ctlcmd/config/config.go).
 The default configuration is read from `~/.wmctl/config.yaml` and can be overridden with the `--config` flag or `WMCTL_CONFIG` environment variable.
 
 An example configuration for a cluster using mTLS may look like this:

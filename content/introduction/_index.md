@@ -26,5 +26,4 @@ The current supported authentication methods are:
 - LDAP
 - Basic Auth
 
-The main implementation can be found in the [node](https://github.com/webmeshproj/node) repository.
-Here you can find example configurations and more documentation on how to run the network.
+The main source and packages can be found in the [webmesh](https://github.com/webmeshproj/webmesh) repository.

@@ -8,8 +8,7 @@ There is a proof-of-concept Kubernetes Operator [here](https://github.com/webmes
 In other environments you can use your preferred certificate authority or the included `wmctl` utility.
 
 This document will show how to use `wmctl` to generate certificates for nodes and use them to connect to the Webmesh API.
-You'll need to have `wmctl` installed.
-It is released as a single binary for Linux, MacOS, and Windows and can be downloaded from the [releases page](https://github.com/webmeshproj/node/releases).
+You'll need to have `wmctl` installed. Installation instructions can be found [here](../installation-instructions/).
 There is no need to configure the CLI when using the `pki` subcommand.
 
 {{< toc >}}
