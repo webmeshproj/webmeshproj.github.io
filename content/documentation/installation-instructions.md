@@ -171,7 +171,10 @@ apk add --allow-untrusted webmesh_${VERSION:1}_linux_${ARCH}.apk
 #### Arch
 
 There is a `pacman` package available, but it is not yet signed with a GPG key.
-For now, refer to the standalone instructions below.
+For now, you can use one of the AUR packages:
+
+- [webmesh-bin](https://aur.archlinux.org/packages/webmesh-bin): Latest pre-built release
+- [webmesh-git](https://aur.archlinux.org/packages/webmesh-git): Builds from source (currently builds from `main` branch)
 
 #### Standalone
 
