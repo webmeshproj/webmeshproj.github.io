@@ -6,6 +6,7 @@ weight: -30
 # What is Webmesh?
 
 Webmesh is a project that aims to provide a zero-configuration, simple, secure, and scalable way to connect devices and services across the internet.
+It allows for easily creating a mesh network between multiple hosts, and provides a simple API for managing the network.
 It is inspired by several other projects that have emerged over the years such as TailScale, ZeroTier, and OpenZiti.
 Peers connect to eachother either via other peers, a central controller (or combination of controllers), or direct links negotiated via WebRTC.
 
