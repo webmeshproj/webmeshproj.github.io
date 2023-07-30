@@ -49,6 +49,8 @@ docker run --rm --privileged --name=bootstrap-node ghcr.io/webmeshproj/node:late
 All that is required above is the `--bootstrap.enabled` flag.
 The others are optional, but useful for testing purposes.
 The `--global.insecure` flag disables authentication and authorization. This is not recommended for production use.
+Several authentication methods are available, but the easiest to setup is mTLS.
+You can find instructions for setting up mTLS [here](/documentation/using-mtls/).
 
 Raft data by default is stored in the `/var/lib/webmesh/store` directory.
 This can be changed by setting the `--raft.data-dir` flag.
