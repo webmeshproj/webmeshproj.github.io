@@ -9,18 +9,17 @@ This page tells you how to get started with the Webmesh project.
 
 ## Install Webmesh Node Binary
 
-The `node` binary is distributed as a container image or a standalone binary.
-To install the binary, download the latest release for your platform and architecture from the [releases page](https://github.com/webmeshproj/webmesh/releases).
+The `webmesh-node` binary is distributed as a container image or a standalone binary.
+To install the binary, refer to the [installation instructions](/documentation/installation-instructions/) for your platform.
 To run the container image, pull the latest image from the GitHub container registry.
 The examples in this guide will use the image.
-
-For more detailed installation instructions for the various supported platforms, see the [installation instructions](/documentation/installation-instructions/).
 
 ## Configuration
 
 Configuration can be supplied via a configuration file, environment variables, or command line flags.
 You can choose to use any combination of these methods.
 To see all available configuration options, run `webmesh-node --help`.
+A detailed description of each option is available in the [configuration reference](/documentation/configuration/).
 
 When using a configuration file, the file can be in TOML, YAML, or JSON format.
 It is first interpreted as a go-template with the following additional functions:
