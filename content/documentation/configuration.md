@@ -72,11 +72,11 @@ General Flags
 | CLI Flag | Env Var | Config File | Default | Description |
 | -------- | ------- | ----------- | ------- | ----------- |
 | `--mesh.direct-peers` | `MESH_DIRECT_PEERS` | `mesh.direct-peers` |  | Comma separated list of peers to request direct edges to. 	If the node is not allowed to create edges and data channels, the node will be unable to join. |
-| `--mesh.grpc-port` | `MESH_GRPC_PORT` | `mesh.grpc-port` | `8443` | GRPC advertise port. |
+| `--mesh.grpc-advertise-port` | `MESH_GRPC_ADVERTISE_PORT` | `mesh.grpc-advertise-port` | `8443` | GRPC advertise port. |
 | `--mesh.join-address` | `MESH_JOIN_ADDRESS` | `mesh.join-address` |  | Address of a node to join. |
 | `--mesh.join-as-voter` | `MESH_JOIN_AS_VOTER` | `mesh.join-as-voter` | `false` | Join the cluster as a voter. Default behavior is to join as an observer. |
 | `--mesh.max-join-retries` | `MESH_MAX_JOIN_RETRIES` | `mesh.max-join-retries` | `10` | Maximum number of join retries. |
-| `--mesh.meshdns-port` | `MESH_MESHDNS_PORT` | `mesh.meshdns-port` | `0` | DNS advertise port. This is set automatically when advertising is enabled and the mesh-dns server is running. Default is 0 (disabled). |
+| `--mesh.meshdns-advertise-port` | `MESH_MESHDNS_ADVERTISE_PORT` | `mesh.meshdns-advertise-port` | `0` | DNS advertise port. This is set automatically when advertising is enabled and the mesh-dns server is running. Default is 0 (disabled). |
 | `--mesh.no-ipv4` | `MESH_NO_IPV4` | `mesh.no-ipv4` | `false` | Do not request IPv4 assignments when joining. |
 | `--mesh.no-ipv6` | `MESH_NO_IPV6` | `mesh.no-ipv6` | `false` | Do not request IPv6 assignments when joining. |
 | `--mesh.node-id` | `MESH_NODE_ID` | `mesh.node-id` | `<hostname>` | Store node ID. If not set, the ID comes from the following decision tree. 1. If mTLS is enabled, the node ID is the CN of the client certificate. 2. If mTLS is not enabled, the node ID is the hostname of the machine. 3. If the hostname is not available, the node ID is a random UUID (should only be used for testing). |
@@ -129,7 +129,7 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 | `--raft.in-memory` | `RAFT_IN_MEMORY` | `raft.in-memory` | `false` | Store data in memory. This should only be used for testing and ephemeral nodes. |
 | `--raft.leader-lease-timeout` | `RAFT_LEADER_LEASE_TIMEOUT` | `raft.leader-lease-timeout` | `3s` | Raft leader lease timeout. |
 | `--raft.leave-on-shutdown` | `RAFT_LEAVE_ON_SHUTDOWN` | `raft.leave-on-shutdown` | `false` | Leave the cluster when the server shuts down. |
-| `--raft.listen-address` | `RAFT_LISTEN_ADDRESS` | `raft.listen-address` | `:9443` | Raft listen address. |
+| `--raft.listen-address` | `RAFT_LISTEN_ADDRESS` | `raft.listen-address` | `[::]:9443` | Raft listen address. |
 | `--raft.log-level` | `RAFT_LOG_LEVEL` | `raft.log-level` | `info` | Raft log level. |
 | `--raft.max-append-entries` | `RAFT_MAX_APPEND_ENTRIES` | `raft.max-append-entries` | `15` | Raft max append entries. |
 | `--raft.observer-chan-buffer` | `RAFT_OBSERVER_CHAN_BUFFER` | `raft.observer-chan-buffer` | `100` | Raft observer channel buffer size. |
@@ -154,7 +154,7 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 | `--wireguard.endpoints` | `WIREGUARD_ENDPOINTS` | `wireguard.endpoints` |  | Comma separated list of additional WireGuard endpoints to broadcast when joining a cluster. |
 | `--wireguard.force-interface-name` | `WIREGUARD_FORCE_INTERFACE_NAME` | `wireguard.force-interface-name` | `false` | Force the use of the given name by deleting any pre-existing interface with the same name. |
 | `--wireguard.force-tun` | `WIREGUARD_FORCE_TUN` | `wireguard.force-tun` | `false` | Force the use of a TUN interface. |
-| `--wireguard.interface-name` | `WIREGUARD_INTERFACE_NAME` | `wireguard.interface-name` | `webmesh0` | The WireGuard interface name. |
+| `--wireguard.interface-name` | `WIREGUARD_INTERFACE_NAME` | `wireguard.interface-name` |  | The WireGuard interface name. |
 | `--wireguard.key-file` | `WIREGUARD_KEY_FILE` | `wireguard.key-file` |  | The path to the WireGuard private key. If it does not exist it will be created. |
 | `--wireguard.key-rotation-interval` | `WIREGUARD_KEY_ROTATION_INTERVAL` | `wireguard.key-rotation-interval` | `168h0m0s` | Interval to rotate WireGuard keys. Set this to 0 to disable key rotation. |
 | `--wireguard.listen-port` | `WIREGUARD_LISTEN_PORT` | `wireguard.listen-port` | `51820` | The WireGuard listen port. |
@@ -173,15 +173,6 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 | `--services.api.disable-leader-proxy` | `SERVICES_API_DISABLE_LEADER_PROXY` | `services.api.disable-leader-proxy` | `false` | Disable the leader proxy. |
 | `--services.api.mesh` | `SERVICES_API_MESH` | `services.api.mesh` | `false` | Enable the mesh API. |
 | `--services.api.peer-discovery` | `SERVICES_API_PEER_DISCOVERY` | `services.api.peer-discovery` | `false` | Enable the peer discovery API. |
-| `--services.api.proxy-auth.basic.password` | `SERVICES_API_PROXY_AUTH_BASIC_PASSWORD` | `services.api.proxy-auth.basic.password` |  | Password for basic authentication. |
-| `--services.api.proxy-auth.basic.username` | `SERVICES_API_PROXY_AUTH_BASIC_USERNAME` | `services.api.proxy-auth.basic.username` |  | Username for basic authentication. |
-| `--services.api.proxy-auth.ldap.username` | `SERVICES_API_PROXY_AUTH_LDAP_USERNAME` | `services.api.proxy-auth.ldap.username` |  | Username for LDAP authentication. |
-| `--services.api.proxy-auth.mtls.cert-file` | `SERVICES_API_PROXY_AUTH_MTLS_CERT_FILE` | `services.api.proxy-auth.mtls.cert-file` |  | Path to a TLS certificate file to present when joining. |
-| `--services.api.proxy-auth.mtls.key-file` | `SERVICES_API_PROXY_AUTH_MTLS_KEY_FILE` | `services.api.proxy-auth.mtls.key-file` |  | Path to a TLS key file for the certificate. |
-| `--services.api.proxy-insecure` | `SERVICES_API_PROXY_INSECURE` | `services.api.proxy-insecure` | `false` | Don't use TLS for the leader proxy. |
-| `--services.api.proxy-insecure-skip-verify` | `SERVICES_API_PROXY_INSECURE_SKIP_VERIFY` | `services.api.proxy-insecure-skip-verify` | `false` | Skip TLS verification when proxying connections. |
-| `--services.api.proxy-tls-ca-file` | `SERVICES_API_PROXY_TLS_CA_FILE` | `services.api.proxy-tls-ca-file` |  | Path to the TLS CA file for verifying the peer certificates. |
-| `--services.api.proxy-verify-chain-only` | `SERVICES_API_PROXY_VERIFY_CHAIN_ONLY` | `services.api.proxy-verify-chain-only` | `false` | Only verify the TLS chain when proxying connections. |
 | `--services.api.stun-servers` | `SERVICES_API_STUN_SERVERS` | `services.api.stun-servers` | `stun:stun.l.google.com:19302` | STUN servers to use. |
 | `--services.api.webrtc` | `SERVICES_API_WEBRTC` | `services.api.webrtc` | `false` | Enable the WebRTC API. |
 | `--services.dashboard.enabled` | `SERVICES_DASHBOARD_ENABLED` | `services.dashboard.enabled` | `false` | Enable the web dashboard. |
@@ -190,16 +181,17 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 | `--services.dashboard.tls-cert-file` | `SERVICES_DASHBOARD_TLS_CERT_FILE` | `services.dashboard.tls-cert-file` |  | The path to a certificate file to use for TLS. |
 | `--services.dashboard.tls-key-file` | `SERVICES_DASHBOARD_TLS_KEY_FILE` | `services.dashboard.tls-key-file` |  | The path to a key file to use for TLS. |
 | `--services.insecure` | `SERVICES_INSECURE` | `services.insecure` | `false` | Don't use TLS for the gRPC server. |
-| `--services.listen-address` | `SERVICES_LISTEN_ADDRESS` | `services.listen-address` | `:8443` | gRPC server listen address. |
-| `--services.mesh-dns.cache-size` | `SERVICES_MESH_DNS_CACHE_SIZE` | `services.mesh-dns.cache-size` | `0` | Size of the remote DNS cache. Defaults to 0 (disabled). |
-| `--services.mesh-dns.disable-forwarding` | `SERVICES_MESH_DNS_DISABLE_FORWARDING` | `services.mesh-dns.disable-forwarding` | `false` | Disable forwarding requests to any configured forwarders. |
-| `--services.mesh-dns.enable-compression` | `SERVICES_MESH_DNS_ENABLE_COMPRESSION` | `services.mesh-dns.enable-compression` | `true` | Enable DNS compression for mesh DNS. |
-| `--services.mesh-dns.enabled` | `SERVICES_MESH_DNS_ENABLED` | `services.mesh-dns.enabled` | `false` | Enable mesh DNS. |
-| `--services.mesh-dns.forwarders` | `SERVICES_MESH_DNS_FORWARDERS` | `services.mesh-dns.forwarders` |  | DNS forwarders to use for mesh DNS. If empty, the system DNS servers will be used. |
-| `--services.mesh-dns.listen-tcp` | `SERVICES_MESH_DNS_LISTEN_TCP` | `services.mesh-dns.listen-tcp` | `:5353` | TCP address to listen on for DNS requests. |
-| `--services.mesh-dns.listen-udp` | `SERVICES_MESH_DNS_LISTEN_UDP` | `services.mesh-dns.listen-udp` | `:5353` | UDP address to listen on for DNS requests. |
-| `--services.mesh-dns.request-timeout` | `SERVICES_MESH_DNS_REQUEST_TIMEOUT` | `services.mesh-dns.request-timeout` | `5s` | Timeout for mesh DNS requests. |
-| `--services.mesh-dns.reuse-port` | `SERVICES_MESH_DNS_REUSE_PORT` | `services.mesh-dns.reuse-port` | `0` | Enable SO_REUSEPORT for mesh DNS. |
+| `--services.listen-address` | `SERVICES_LISTEN_ADDRESS` | `services.listen-address` | `[::]:8443` | gRPC server listen address. |
+| `--services.meshdns.cache-size` | `SERVICES_MESHDNS_CACHE_SIZE` | `services.meshdns.cache-size` | `0` | Size of the remote DNS cache. Defaults to 0 (disabled). |
+| `--services.meshdns.disable-forwarding` | `SERVICES_MESHDNS_DISABLE_FORWARDING` | `services.meshdns.disable-forwarding` | `false` | Disable forwarding requests entirely. Takes precedence over other forwarding configurations. |
+| `--services.meshdns.enable-compression` | `SERVICES_MESHDNS_ENABLE_COMPRESSION` | `services.meshdns.enable-compression` | `true` | Enable DNS compression for mesh DNS. |
+| `--services.meshdns.enabled` | `SERVICES_MESHDNS_ENABLED` | `services.meshdns.enabled` | `false` | Enable mesh DNS. |
+| `--services.meshdns.forwarders` | `SERVICES_MESHDNS_FORWARDERS` | `services.meshdns.forwarders` |  | DNS forwarders to use for mesh DNS. If empty, the system DNS servers will be used. |
+| `--services.meshdns.listen-tcp` | `SERVICES_MESHDNS_LISTEN_TCP` | `services.meshdns.listen-tcp` | `:53` | TCP address to listen on for DNS requests. |
+| `--services.meshdns.listen-udp` | `SERVICES_MESHDNS_LISTEN_UDP` | `services.meshdns.listen-udp` | `:53` | UDP address to listen on for DNS requests. |
+| `--services.meshdns.request-timeout` | `SERVICES_MESHDNS_REQUEST_TIMEOUT` | `services.meshdns.request-timeout` | `5s` | Timeout for mesh DNS requests. |
+| `--services.meshdns.reuse-port` | `SERVICES_MESHDNS_REUSE_PORT` | `services.meshdns.reuse-port` | `0` | Enable SO_REUSEPORT for mesh DNS. |
+| `--services.meshdns.subscribe-forwarders` | `SERVICES_MESHDNS_SUBSCRIBE_FORWARDERS` | `services.meshdns.subscribe-forwarders` | `false` | Subscribe to new nodes that are able to forward requests for other meshes.  These forwarders will be placed at the bottom of the forwarders list. |
 | `--services.metrics.enabled` | `SERVICES_METRICS_ENABLED` | `services.metrics.enabled` | `false` | Enable gRPC metrics. |
 | `--services.metrics.listen-address` | `SERVICES_METRICS_LISTEN_ADDRESS` | `services.metrics.listen-address` | `:8000` | gRPC metrics listen address. |
 | `--services.metrics.path` | `SERVICES_METRICS_PATH` | `services.metrics.path` | `/metrics` | gRPC metrics path. |
@@ -218,6 +210,11 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 | CLI Flag | Env Var | Config File | Default | Description |
 | -------- | ------- | ----------- | ------- | ----------- |
 | `--plugins.basic-auth.htpasswd-file` | `PLUGINS_BASIC_AUTH_HTPASSWD_FILE` | `plugins.basic-auth.htpasswd-file` |  | Enables the basic auth plugin with the path to a htpasswd file |
+| `--plugins.debug.disable-pprof` | `PLUGINS_DEBUG_DISABLE_PPROF` | `plugins.debug.disable-pprof` |  | Enables the debug plugin with pprof disabled |
+| `--plugins.debug.enable-db-querier` | `PLUGINS_DEBUG_ENABLE_DB_QUERIER` | `plugins.debug.enable-db-querier` |  | Enables the debug plugin with the database querier enabled |
+| `--plugins.debug.listen-address` | `PLUGINS_DEBUG_LISTEN_ADDRESS` | `plugins.debug.listen-address` |  | Enables the debug plugin with the listen address |
+| `--plugins.debug.path-prefix` | `PLUGINS_DEBUG_PATH_PREFIX` | `plugins.debug.path-prefix` |  | Enables the debug plugin with the path prefix |
+| `--plugins.debug.pprof-profiles` | `PLUGINS_DEBUG_PPROF_PROFILES` | `plugins.debug.pprof-profiles` |  | Enables the debug plugin with the pprof profiles |
 | `--plugins.ldap.bind-dn` | `PLUGINS_LDAP_BIND_DN` | `plugins.ldap.bind-dn` |  | Enables the ldap plugin with the bind DN |
 | `--plugins.ldap.bind-password` | `PLUGINS_LDAP_BIND_PASSWORD` | `plugins.ldap.bind-password` |  | Enables the ldap plugin with the bind password |
 | `--plugins.ldap.ca-file` | `PLUGINS_LDAP_CA_FILE` | `plugins.ldap.ca-file` |  | Enables the ldap plugin with the path to a CA for verifying certificates |
