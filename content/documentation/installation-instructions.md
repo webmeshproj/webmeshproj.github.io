@@ -176,6 +176,23 @@ For now, you can use one of the AUR packages:
 - [webmesh-bin](https://aur.archlinux.org/packages/webmesh-bin): Latest pre-built release
 - [webmesh-git](https://aur.archlinux.org/packages/webmesh-git): Builds from source (currently builds from `main` branch)
 
+#### NixOS
+
+There is a `nix` package available in the unstable repository [here](https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/servers/webmesh/default.nix).
+
+You have several options for configuring your `configuration.nix` file.
+A simple example may look like this:
+
+```nix
+{
+  unstable-pkgs ? import <nixpkgs-unstable> { }
+}: {
+  environment.systemPackages = [
+    unstable-pkgs.webmesh
+  ];
+}
+```
+
 #### Standalone
 
 Fetch the latest release tarball from the releases page.
