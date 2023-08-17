@@ -75,7 +75,9 @@ General Flags
 | `--mesh.grpc-advertise-port` | `MESH_GRPC_ADVERTISE_PORT` | `mesh.grpc-advertise-port` | `8443` | GRPC advertise port. |
 | `--mesh.heartbeat-purge-threshold` | `MESH_HEARTBEAT_PURGE_THRESHOLD` | `mesh.heartbeat-purge-threshold` | `0` | Threshold of failed heartbeats for purging a peer. Default is 0 (disabled). |
 | `--mesh.join-address` | `MESH_JOIN_ADDRESS` | `mesh.join-address` |  | Address of a node to join. |
-| `--mesh.join-as-voter` | `MESH_JOIN_AS_VOTER` | `mesh.join-as-voter` | `false` | Join the cluster as a voter. Default behavior is to join as an observer. |
+| `--mesh.join-as-observer` | `MESH_JOIN_AS_OBSERVER` | `mesh.join-as-observer` | `false` | Join the cluster as a raft observer. |
+| `--mesh.join-as-voter` | `MESH_JOIN_AS_VOTER` | `mesh.join-as-voter` | `false` | Join the cluster as a raft voter. |
+| `--mesh.join-campfire-uri` | `MESH_JOIN_CAMPFIRE_URI` | `mesh.join-campfire-uri` |  | Campfire URI to use for joining. |
 | `--mesh.max-join-retries` | `MESH_MAX_JOIN_RETRIES` | `mesh.max-join-retries` | `10` | Maximum number of join retries. |
 | `--mesh.meshdns-advertise-port` | `MESH_MESHDNS_ADVERTISE_PORT` | `mesh.meshdns-advertise-port` | `0` | DNS advertise port. This is set automatically when advertising is enabled and the mesh-dns server is running. Default is 0 (disabled). |
 | `--mesh.no-ipv4` | `MESH_NO_IPV4` | `mesh.no-ipv4` | `false` | Do not request IPv4 assignments when joining. |
@@ -85,6 +87,7 @@ General Flags
 | `--mesh.primary-endpoint` | `MESH_PRIMARY_ENDPOINT` | `mesh.primary-endpoint` |  | The primary endpoint to broadcast when joining a cluster. This is only necessary if the node intends on being publicly accessible. |
 | `--mesh.routes` | `MESH_ROUTES` | `mesh.routes` |  | Comma separated list of additional routes to advertise to the mesh. 	These routes are advertised to all peers. If the node is not allowed 	to put routes in the mesh, the node will be unable to join. |
 | `--mesh.use-meshdns` | `MESH_USE_MESHDNS` | `mesh.use-meshdns` | `false` | Set mesh DNS servers to the system configuration. If a local server is running, this will use the local server. |
+| `--mesh.wait-campfire-uri` | `MESH_WAIT_CAMPFIRE_URI` | `mesh.wait-campfire-uri` |  | Campfire URI to allow others to join through. |
 | `--mesh.zone-awareness-id` | `MESH_ZONE_AWARENESS_ID` | `mesh.zone-awareness-id` |  | Zone awareness ID. If set, the server will prioritize peer endpoints in the same zone. |
 
 ## Auth Configurations
@@ -111,7 +114,6 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 | `--bootstrap.force` | `BOOTSTRAP_FORCE` | `bootstrap.force` | `false` | Force bootstrapping a new cluster even if data is present. |
 | `--bootstrap.ipv4-network` | `BOOTSTRAP_IPV4_NETWORK` | `bootstrap.ipv4-network` | `172.16.0.0/12` | IPv4 network of the mesh to write to the database when bootstraping a new cluster. |
 | `--bootstrap.mesh-domain` | `BOOTSTRAP_MESH_DOMAIN` | `bootstrap.mesh-domain` | `webmesh.internal` | Domain of the mesh to write to the database when bootstraping a new cluster. |
-| `--bootstrap.restore-snapshot` | `BOOTSTRAP_RESTORE_SNAPSHOT` | `bootstrap.restore-snapshot` |  | Path to a snapshot to restore from when bootstrapping a new cluster. |
 | `--bootstrap.servers` | `BOOTSTRAP_SERVERS` | `bootstrap.servers` |  | Comma separated list of servers to bootstrap with. This is only used if bootstrap is true. 	If empty, the node will use the advertise address as the bootstrap server. If not empty, 	all nodes in the list should be started with the same list configurations. If any are  	different then the first node to become leader will pick them. This can cause bootstrap 	to fail when using ACLs. Servers should be in the form of `<node-id>`=`<address>` where  	address is the raft advertise address. |
 | `--bootstrap.servers-grpc-ports` | `BOOTSTRAP_SERVERS_GRPC_PORTS` | `bootstrap.servers-grpc-ports` |  | Comma separated list of gRPC ports to bootstrap with. This is only used if bootstrap is true. If empty, the node will use the advertise address and locally configured gRPC port for every node in bootstrap-servers. Ports should be in the form of `<node-id>`=`<port>`. |
 | `--bootstrap.voters` | `BOOTSTRAP_VOTERS` | `bootstrap.voters` |  | Comma separated list of voters to bootstrap the cluster with. bootstrap-servers are already included in this list. |
@@ -200,6 +202,7 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 | `--services.metrics.path` | `SERVICES_METRICS_PATH` | `services.metrics.path` | `/metrics` | gRPC metrics path. |
 | `--services.tls-cert-file` | `SERVICES_TLS_CERT_FILE` | `services.tls-cert-file` |  | gRPC server TLS certificate file. |
 | `--services.tls-key-file` | `SERVICES_TLS_KEY_FILE` | `services.tls-key-file` |  | gRPC server TLS key file. |
+| `--services.turn.campfire-enabled` | `SERVICES_TURN_CAMPFIRE_ENABLED` | `services.turn.campfire-enabled` | `false` | Enable handling campfire packets on the TURN server. |
 | `--services.turn.enabled` | `SERVICES_TURN_ENABLED` | `services.turn.enabled` | `false` | Enable the TURN server. |
 | `--services.turn.endpoint` | `SERVICES_TURN_ENDPOINT` | `services.turn.endpoint` |  | The TURN server endpoint. If empty, the public IP will be used. |
 | `--services.turn.listen-address` | `SERVICES_TURN_LISTEN_ADDRESS` | `services.turn.listen-address` | `0.0.0.0` | Address to listen on for TURN connections. |
