@@ -95,6 +95,7 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 | `--bridge.<mesh-id>.bootstrap.admin` | `bridge.<mesh-id>.bootstrap.admin` | `admin` | Admin username to bootstrap the cluster with. |
 | `--bridge.<mesh-id>.bootstrap.advertise-address` | `bridge.<mesh-id>.bootstrap.advertise-address` |  | Raft advertise address. Required when bootstrapping a new cluster, but will be replaced with the WireGuard address after bootstrapping. |
 | `--bridge.<mesh-id>.bootstrap.default-network-policy` | `bridge.<mesh-id>.bootstrap.default-network-policy` | `deny` | Default network policy to bootstrap the cluster with. |
+| `--bridge.<mesh-id>.bootstrap.disable-rbac` | `bridge.<mesh-id>.bootstrap.disable-rbac` | `false` | Disable RBAC when bootstrapping a new cluster. |
 | `--bridge.<mesh-id>.bootstrap.enabled` | `bridge.<mesh-id>.bootstrap.enabled` | `false` | Bootstrap the cluster. |
 | `--bridge.<mesh-id>.bootstrap.force` | `bridge.<mesh-id>.bootstrap.force` | `false` | Force bootstrapping a new cluster even if data is present. |
 | `--bridge.<mesh-id>.bootstrap.ipv4-network` | `bridge.<mesh-id>.bootstrap.ipv4-network` | `172.16.0.0/12` | IPv4 network of the mesh to write to the database when bootstraping a new cluster. |
@@ -163,8 +164,6 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 | `--bridge.<mesh-id>.services.api.peer-discovery` | `bridge.<mesh-id>.services.api.peer-discovery` | `false` | Enable the peer discovery API. |
 | `--bridge.<mesh-id>.services.api.stun-servers` | `bridge.<mesh-id>.services.api.stun-servers` | `stun:stun.l.google.com:19302` | STUN servers to use. |
 | `--bridge.<mesh-id>.services.api.webrtc` | `bridge.<mesh-id>.services.api.webrtc` | `false` | Enable the WebRTC API. |
-| `--bridge.<mesh-id>.services.campfire.enabled` | `bridge.<mesh-id>.services.campfire.enabled` | `false` | whether the campfire service is enabled |
-| `--bridge.<mesh-id>.services.campfire.listen-udp` | `bridge.<mesh-id>.services.campfire.listen-udp` | `:4095` | the UDP address to listen on |
 | `--bridge.<mesh-id>.services.dashboard.enabled` | `bridge.<mesh-id>.services.dashboard.enabled` | `false` | Enable the web dashboard. |
 | `--bridge.<mesh-id>.services.dashboard.listen-address` | `bridge.<mesh-id>.services.dashboard.listen-address` | `:8080` | The address for the dashboard to listen on. |
 | `--bridge.<mesh-id>.services.dashboard.prefix` | `bridge.<mesh-id>.services.dashboard.prefix` |  | The path prefix to use for the dashboard. |

@@ -110,6 +110,7 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 | `--bootstrap.admin` | `BOOTSTRAP_ADMIN` | `bootstrap.admin` | `admin` | Admin username to bootstrap the cluster with. |
 | `--bootstrap.advertise-address` | `BOOTSTRAP_ADVERTISE_ADDRESS` | `bootstrap.advertise-address` |  | Raft advertise address. Required when bootstrapping a new cluster, but will be replaced with the WireGuard address after bootstrapping. |
 | `--bootstrap.default-network-policy` | `BOOTSTRAP_DEFAULT_NETWORK_POLICY` | `bootstrap.default-network-policy` | `deny` | Default network policy to bootstrap the cluster with. |
+| `--bootstrap.disable-rbac` | `BOOTSTRAP_DISABLE_RBAC` | `bootstrap.disable-rbac` | `false` | Disable RBAC when bootstrapping a new cluster. |
 | `--bootstrap.enabled` | `BOOTSTRAP_ENABLED` | `bootstrap.enabled` | `false` | Bootstrap the cluster. |
 | `--bootstrap.force` | `BOOTSTRAP_FORCE` | `bootstrap.force` | `false` | Force bootstrapping a new cluster even if data is present. |
 | `--bootstrap.ipv4-network` | `BOOTSTRAP_IPV4_NETWORK` | `bootstrap.ipv4-network` | `172.16.0.0/12` | IPv4 network of the mesh to write to the database when bootstraping a new cluster. |
@@ -178,8 +179,6 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 | `--services.api.peer-discovery` | `SERVICES_API_PEER_DISCOVERY` | `services.api.peer-discovery` | `false` | Enable the peer discovery API. |
 | `--services.api.stun-servers` | `SERVICES_API_STUN_SERVERS` | `services.api.stun-servers` | `stun:stun.l.google.com:19302` | STUN servers to use. |
 | `--services.api.webrtc` | `SERVICES_API_WEBRTC` | `services.api.webrtc` | `false` | Enable the WebRTC API. |
-| `--services.campfire.enabled` | `SERVICES_CAMPFIRE_ENABLED` | `services.campfire.enabled` | `false` | whether the campfire service is enabled |
-| `--services.campfire.listen-udp` | `SERVICES_CAMPFIRE_LISTEN_UDP` | `services.campfire.listen-udp` | `:4095` | the UDP address to listen on |
 | `--services.dashboard.enabled` | `SERVICES_DASHBOARD_ENABLED` | `services.dashboard.enabled` | `false` | Enable the web dashboard. |
 | `--services.dashboard.listen-address` | `SERVICES_DASHBOARD_LISTEN_ADDRESS` | `services.dashboard.listen-address` | `:8080` | The address for the dashboard to listen on. |
 | `--services.dashboard.prefix` | `SERVICES_DASHBOARD_PREFIX` | `services.dashboard.prefix` |  | The path prefix to use for the dashboard. |
