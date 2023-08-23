@@ -151,6 +151,15 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 | `--bridge.<mesh-id>.wireguard.record-metrics` | `bridge.<mesh-id>.wireguard.record-metrics` | `false` | Publish WireGuard metrics. |
 | `--bridge.<mesh-id>.wireguard.record-metrics-interval` | `bridge.<mesh-id>.wireguard.record-metrics-interval` | `15s` | Interval at which to update WireGuard metrics. |
 
+## Discovery Configurations
+
+| CLI Flag | Config File | Default | Description |
+| -------- | ----------- | ------- | ----------- |
+| `--bridge.<mesh-id>.discovery.announce` | `bridge.<mesh-id>.discovery.announce` | `false` | Announce this peer to the discovery service. |
+| `--bridge.<mesh-id>.discovery.kad-bootstrap-servers` | `bridge.<mesh-id>.discovery.kad-bootstrap-servers` |  | Comma separated list of bootstrap servers to use for the DHT. |
+| `--bridge.<mesh-id>.discovery.psk` | `bridge.<mesh-id>.discovery.psk` |  | Pre-shared key to use as a rendezvous point for peer discovery. |
+| `--bridge.<mesh-id>.discovery.use-kad-dht` | `bridge.<mesh-id>.discovery.use-kad-dht` | `false` | Use the libp2p kademlia DHT for discovery. |
+
 ## Services Configurations
 
 | CLI Flag | Config File | Default | Description |
