@@ -62,17 +62,14 @@ Global flags are supported, but do not override TLS and some WireGuard configura
 | `--bridge.<mesh-id>.mesh.join-address` | `bridge.<mesh-id>.mesh.join-address` |  | Address of a node to join. |
 | `--bridge.<mesh-id>.mesh.join-as-observer` | `bridge.<mesh-id>.mesh.join-as-observer` | `false` | Join the cluster as a raft observer. |
 | `--bridge.<mesh-id>.mesh.join-as-voter` | `bridge.<mesh-id>.mesh.join-as-voter` | `false` | Join the cluster as a raft voter. |
-| `--bridge.<mesh-id>.mesh.join-campfire-uri` | `bridge.<mesh-id>.mesh.join-campfire-uri` |  | Campfire URI to use for joining. |
 | `--bridge.<mesh-id>.mesh.max-join-retries` | `bridge.<mesh-id>.mesh.max-join-retries` | `10` | Maximum number of join retries. |
 | `--bridge.<mesh-id>.mesh.meshdns-advertise-port` | `bridge.<mesh-id>.mesh.meshdns-advertise-port` | `0` | DNS advertise port. This is set automatically when advertising is enabled and the mesh-dns server is running. Default is 0 (disabled). |
 | `--bridge.<mesh-id>.mesh.no-ipv4` | `bridge.<mesh-id>.mesh.no-ipv4` | `false` | Do not request IPv4 assignments when joining. |
 | `--bridge.<mesh-id>.mesh.no-ipv6` | `bridge.<mesh-id>.mesh.no-ipv6` | `false` | Do not request IPv6 assignments when joining. |
 | `--bridge.<mesh-id>.mesh.node-id` | `bridge.<mesh-id>.mesh.node-id` | `<hostname>` | Store node ID. If not set, the ID comes from the following decision tree. 1. If mTLS is enabled, the node ID is the CN of the client certificate. 2. If mTLS is not enabled, the node ID is the hostname of the machine. 3. If the hostname is not available, the node ID is a random UUID (should only be used for testing). |
-| `--bridge.<mesh-id>.mesh.peer-discovery-addresses` | `bridge.<mesh-id>.mesh.peer-discovery-addresses` |  | Addresses to use for peer discovery. |
 | `--bridge.<mesh-id>.mesh.primary-endpoint` | `bridge.<mesh-id>.mesh.primary-endpoint` |  | The primary endpoint to broadcast when joining a cluster. This is only necessary if the node intends on being publicly accessible. |
 | `--bridge.<mesh-id>.mesh.routes` | `bridge.<mesh-id>.mesh.routes` |  | Comma separated list of additional routes to advertise to the mesh. 	These routes are advertised to all peers. If the node is not allowed 	to put routes in the mesh, the node will be unable to join. |
 | `--bridge.<mesh-id>.mesh.use-meshdns` | `bridge.<mesh-id>.mesh.use-meshdns` | `false` | Set mesh DNS servers to the system configuration. If a local server is running, this will use the local server. |
-| `--bridge.<mesh-id>.mesh.wait-campfire-uri` | `bridge.<mesh-id>.mesh.wait-campfire-uri` |  | Campfire URI to allow others to join through. |
 | `--bridge.<mesh-id>.mesh.zone-awareness-id` | `bridge.<mesh-id>.mesh.zone-awareness-id` |  | Zone awareness ID. If set, the server will prioritize peer endpoints in the same zone. |
 
 ## Auth Configurations
@@ -161,7 +158,6 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 | `--bridge.<mesh-id>.services.api.admin` | `bridge.<mesh-id>.services.api.admin` | `false` | Enable the admin API. |
 | `--bridge.<mesh-id>.services.api.disable-leader-proxy` | `bridge.<mesh-id>.services.api.disable-leader-proxy` | `false` | Disable the leader proxy. |
 | `--bridge.<mesh-id>.services.api.mesh` | `bridge.<mesh-id>.services.api.mesh` | `false` | Enable the mesh API. |
-| `--bridge.<mesh-id>.services.api.peer-discovery` | `bridge.<mesh-id>.services.api.peer-discovery` | `false` | Enable the peer discovery API. |
 | `--bridge.<mesh-id>.services.api.stun-servers` | `bridge.<mesh-id>.services.api.stun-servers` | `stun:stun.l.google.com:19302` | STUN servers to use. |
 | `--bridge.<mesh-id>.services.api.webrtc` | `bridge.<mesh-id>.services.api.webrtc` | `false` | Enable the WebRTC API. |
 | `--bridge.<mesh-id>.services.dashboard.enabled` | `bridge.<mesh-id>.services.dashboard.enabled` | `false` | Enable the web dashboard. |
@@ -176,7 +172,6 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 | `--bridge.<mesh-id>.services.metrics.path` | `bridge.<mesh-id>.services.metrics.path` | `/metrics` | gRPC metrics path. |
 | `--bridge.<mesh-id>.services.tls-cert-file` | `bridge.<mesh-id>.services.tls-cert-file` |  | gRPC server TLS certificate file. |
 | `--bridge.<mesh-id>.services.tls-key-file` | `bridge.<mesh-id>.services.tls-key-file` |  | gRPC server TLS key file. |
-| `--bridge.<mesh-id>.services.turn.campfire-enabled` | `bridge.<mesh-id>.services.turn.campfire-enabled` | `false` | Enable handling campfire packets on the TURN server. |
 | `--bridge.<mesh-id>.services.turn.enabled` | `bridge.<mesh-id>.services.turn.enabled` | `false` | Enable the TURN server. |
 | `--bridge.<mesh-id>.services.turn.endpoint` | `bridge.<mesh-id>.services.turn.endpoint` |  | The TURN server endpoint. If empty, the public IP will be used. |
 | `--bridge.<mesh-id>.services.turn.listen-address` | `bridge.<mesh-id>.services.turn.listen-address` | `0.0.0.0` | Address to listen on for TURN connections. |

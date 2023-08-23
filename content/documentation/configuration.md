@@ -77,17 +77,14 @@ General Flags
 | `--mesh.join-address` | `MESH_JOIN_ADDRESS` | `mesh.join-address` |  | Address of a node to join. |
 | `--mesh.join-as-observer` | `MESH_JOIN_AS_OBSERVER` | `mesh.join-as-observer` | `false` | Join the cluster as a raft observer. |
 | `--mesh.join-as-voter` | `MESH_JOIN_AS_VOTER` | `mesh.join-as-voter` | `false` | Join the cluster as a raft voter. |
-| `--mesh.join-campfire-uri` | `MESH_JOIN_CAMPFIRE_URI` | `mesh.join-campfire-uri` |  | Campfire URI to use for joining. |
 | `--mesh.max-join-retries` | `MESH_MAX_JOIN_RETRIES` | `mesh.max-join-retries` | `10` | Maximum number of join retries. |
 | `--mesh.meshdns-advertise-port` | `MESH_MESHDNS_ADVERTISE_PORT` | `mesh.meshdns-advertise-port` | `0` | DNS advertise port. This is set automatically when advertising is enabled and the mesh-dns server is running. Default is 0 (disabled). |
 | `--mesh.no-ipv4` | `MESH_NO_IPV4` | `mesh.no-ipv4` | `false` | Do not request IPv4 assignments when joining. |
 | `--mesh.no-ipv6` | `MESH_NO_IPV6` | `mesh.no-ipv6` | `false` | Do not request IPv6 assignments when joining. |
 | `--mesh.node-id` | `MESH_NODE_ID` | `mesh.node-id` | `<hostname>` | Store node ID. If not set, the ID comes from the following decision tree. 1. If mTLS is enabled, the node ID is the CN of the client certificate. 2. If mTLS is not enabled, the node ID is the hostname of the machine. 3. If the hostname is not available, the node ID is a random UUID (should only be used for testing). |
-| `--mesh.peer-discovery-addresses` | `MESH_PEER_DISCOVERY_ADDRESSES` | `mesh.peer-discovery-addresses` |  | Addresses to use for peer discovery. |
 | `--mesh.primary-endpoint` | `MESH_PRIMARY_ENDPOINT` | `mesh.primary-endpoint` |  | The primary endpoint to broadcast when joining a cluster. This is only necessary if the node intends on being publicly accessible. |
 | `--mesh.routes` | `MESH_ROUTES` | `mesh.routes` |  | Comma separated list of additional routes to advertise to the mesh. 	These routes are advertised to all peers. If the node is not allowed 	to put routes in the mesh, the node will be unable to join. |
 | `--mesh.use-meshdns` | `MESH_USE_MESHDNS` | `mesh.use-meshdns` | `false` | Set mesh DNS servers to the system configuration. If a local server is running, this will use the local server. |
-| `--mesh.wait-campfire-uri` | `MESH_WAIT_CAMPFIRE_URI` | `mesh.wait-campfire-uri` |  | Campfire URI to allow others to join through. |
 | `--mesh.zone-awareness-id` | `MESH_ZONE_AWARENESS_ID` | `mesh.zone-awareness-id` |  | Zone awareness ID. If set, the server will prioritize peer endpoints in the same zone. |
 
 ## Auth Configurations
@@ -176,7 +173,6 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 | `--services.api.admin` | `SERVICES_API_ADMIN` | `services.api.admin` | `false` | Enable the admin API. |
 | `--services.api.disable-leader-proxy` | `SERVICES_API_DISABLE_LEADER_PROXY` | `services.api.disable-leader-proxy` | `false` | Disable the leader proxy. |
 | `--services.api.mesh` | `SERVICES_API_MESH` | `services.api.mesh` | `false` | Enable the mesh API. |
-| `--services.api.peer-discovery` | `SERVICES_API_PEER_DISCOVERY` | `services.api.peer-discovery` | `false` | Enable the peer discovery API. |
 | `--services.api.stun-servers` | `SERVICES_API_STUN_SERVERS` | `services.api.stun-servers` | `stun:stun.l.google.com:19302` | STUN servers to use. |
 | `--services.api.webrtc` | `SERVICES_API_WEBRTC` | `services.api.webrtc` | `false` | Enable the WebRTC API. |
 | `--services.dashboard.enabled` | `SERVICES_DASHBOARD_ENABLED` | `services.dashboard.enabled` | `false` | Enable the web dashboard. |
@@ -201,7 +197,6 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 | `--services.metrics.path` | `SERVICES_METRICS_PATH` | `services.metrics.path` | `/metrics` | gRPC metrics path. |
 | `--services.tls-cert-file` | `SERVICES_TLS_CERT_FILE` | `services.tls-cert-file` |  | gRPC server TLS certificate file. |
 | `--services.tls-key-file` | `SERVICES_TLS_KEY_FILE` | `services.tls-key-file` |  | gRPC server TLS key file. |
-| `--services.turn.campfire-enabled` | `SERVICES_TURN_CAMPFIRE_ENABLED` | `services.turn.campfire-enabled` | `false` | Enable handling campfire packets on the TURN server. |
 | `--services.turn.enabled` | `SERVICES_TURN_ENABLED` | `services.turn.enabled` | `false` | Enable the TURN server. |
 | `--services.turn.endpoint` | `SERVICES_TURN_ENDPOINT` | `services.turn.endpoint` |  | The TURN server endpoint. If empty, the public IP will be used. |
 | `--services.turn.listen-address` | `SERVICES_TURN_LISTEN_ADDRESS` | `services.turn.listen-address` | `0.0.0.0` | Address to listen on for TURN connections. |
