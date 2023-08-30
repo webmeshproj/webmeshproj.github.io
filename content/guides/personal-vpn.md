@@ -133,6 +133,12 @@ You can connect to the node by running another `webmesh-node` instance pointed a
 we generated earlier.
 
 ```bash
+# Copy the certificates to the local machine. They are also base64 encoded in the admin configuration
+# we generated earlier.
+sudo cp pki/nodes/server/* /etc/webmesh/tls/
+```
+
+```bash
 sudo webmesh-node \
     --global.mtls \
     --global.tls-cert-file=/etc/webmesh/tls/tls.crt \
