@@ -82,5 +82,5 @@ Depending on your docker network configuration, you may need to use the IP addre
 
 ## Next Steps
 
-Now that you have a network running, you can look through the various configuration docs to learn how to configure it and use it.
+Now that you have a network running, you can look through the various configuration docs to learn how to configure and use it.
 More documentation will be added in the future.
