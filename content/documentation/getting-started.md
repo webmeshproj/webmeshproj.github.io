@@ -37,10 +37,11 @@ It works fine on most clusters, including ephemeral docker-based ones, but is no
 A simple bootstrap node may be started with the following command:
 
 ```bash
-# You can remove the --global.no-ipv6 flag if you have IPv6 connectivity on your docker network.
+# You can remove the --global.disable-ipv6 flag if you have IPv6 connectivity on your docker network.
+# The simple docker-compose example in the readme shows how to do this.
 docker run --rm --privileged --name=bootstrap-node ghcr.io/webmeshproj/node:latest \
     --global.insecure \
-    --global.no-ipv6 \
+    --global.disable-ipv6 \
     --global.detect-endpoints \
     --global.detect-private-endpoints \
     --bootstrap.enabled
@@ -61,10 +62,10 @@ By default the following ports are used for communication between nodes:
 | Port  | Protocol | Description |
 | ----- | -------- | ----------- |
 | 8443  | gRPC     | API         |
-| 9443  | TCP      | Raft        |
+| 9000  | TCP      | Raft        |
 | 51820 | UDP      | WireGuard   |
 
-These are configurable via the `--services.listen-address`, `--raft.listen-address`, and `--wireguard.listen-port` flags respectively.
+These are configurable via the `--services.grpc-listen-address`, `--raft.listen-address`, and `--wireguard.listen-port` flags respectively.
 
 ## Join a Network
 
@@ -73,15 +74,12 @@ You can connect another container to the network by running the following comman
 ```bash
 docker run --rm --privileged ghcr.io/webmeshproj/node:latest \
     --global.insecure \
-    --global.no-ipv6 \
+    --global.disable-ipv6 \
     --mesh.join-address=bootstrap-node:8443
 ```
 
 Depending on your docker network configuration, you may need to use the IP address of the bootstrap node instead of its hostname.
 
-The `wmctl` utility distributed with the `node` binary can also be used to connect and/or query the APIs.
-To start a WireGuard connection to the network:
+## Next Steps
 
-```bash
-wmctl connect --insecure --no-ipv6 --join-server=<container_ip>:8443
-```
+Now that you have a network running, you can look through the configuration docs to learn how to configure it and use it.
