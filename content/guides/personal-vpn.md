@@ -147,13 +147,6 @@ sudo webmesh-node \
     --mesh.join-address=$SERVER_IP:8443
 ```
 
-The following errors and warning are to be expected when connecting to a node for the first time:
-
-```bash
-time=2023-07-25T15:56:20.846+03:00 level=ERROR msg="failed to get leader" component=store node-id=admin error="node not found"
-time=2023-07-25T15:56:48.190+03:00 level=WARN msg="failed to get previous log" component=raft previous-index=21 last-index=0 error="log not found"
-```
-
 To verify connectivity, you can use the `wg` utility or try to ping the bootstrap server.
 
 ```bash
