@@ -129,12 +129,16 @@ sudo journalctl -fu webmesh
 
 ## Connect to the node
 
-There are two main ways to connect to the node.
-We'll use the `wmctl` utility and the generated `admin.yaml` configuration file to connect to the node.
-If you have not downloaded the utlity to your local machine, you can do so now following the steps above for your OS and architecture.
+You can connect to the node by running another `webmesh-node` instance pointed at the server, and using the certificate
+we generated earlier.
 
 ```bash
-sudo wmctl connect --config admin.yaml
+sudo webmesh-node \
+    --global.mtls \
+    --global.tls-cert-file=/etc/webmesh/tls/tls.crt \
+    --global.tls-key-file=/etc/webmesh/tls/tls.key \
+    --global.tls-ca-file=/etc/webmesh/tls/ca.crt \
+    --mesh.join-address=$SERVER_IP:8443
 ```
 
 The following errors and warning are to be expected when connecting to a node for the first time:
@@ -143,8 +147,6 @@ The following errors and warning are to be expected when connecting to a node fo
 time=2023-07-25T15:56:20.846+03:00 level=ERROR msg="failed to get leader" component=store node-id=admin error="node not found"
 time=2023-07-25T15:56:48.190+03:00 level=WARN msg="failed to get previous log" component=raft previous-index=21 last-index=0 error="log not found"
 ```
-
-To see more verbose logs you can pass the `--log-level` flag to the `wmctl` utility.
 
 To verify connectivity, you can use the `wg` utility or try to ping the bootstrap server.
 
@@ -156,6 +158,9 @@ ping 172.16.0.1
 # You can also use the wg utility to verify connectivity
 wg show
 ```
+
+There was originally a `wmctl connect` command that could be used with the `admin.yaml` configuration file, but it has been removed in favor of the `webmesh-node` command.
+There is still a chance it may return in the future, but as shown in this example, the default node configurations are very simple and can be specified directly on the command line or via a configuration file.
 
 ## Create a network
 

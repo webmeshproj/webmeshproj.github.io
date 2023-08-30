@@ -95,7 +95,7 @@ docker run --rm --privileged \
     --publish 8443:8443 \
     --volume $(pwd)/pki/nodes/bootstrap:/etc/webmesh/tls \
     ghcr.io/webmeshproj/node:latest \
-        --global.no-ipv6 \
+        --global.disable-ipv6 \
         --global.detect-endpoints \
         --global.detect-private-endpoints \
         --global.mtls \
@@ -104,7 +104,6 @@ docker run --rm --privileged \
         --global.tls-key-file=/etc/webmesh/tls/tls.key \
         --global.verify-chain-only \
         --bootstrap.enabled \
-        --bootstrap.default-network-policy=accept
 ```
 
 As explained in the [configuration](../configuration/) section, you may replace the command line flags with environment variables or a configuration file.
@@ -119,7 +118,6 @@ Let's break down the command line flags.
 - `--global.tls-key-file` - The path to the node's private key.
 - `--global.verify-chain-only` - Only verify the certificate chain and presented node ID. This is included because the `pki` subcommand does not include hostnames or IP addresses in the certificate.
 - `--bootstrap.enabled` - Enable bootstrapping. This will allow the node to create the cluster.
-- `--bootstrap.default-network-policy=accept` - Set the default network policy to accept. This will allow all traffic between nodes.
 
 After the bootstrap node is running we can start the regular node.
 Most docker configurations will automatically create a DNS alias for you on the docker network.
@@ -137,7 +135,7 @@ docker run --rm --privileged \
     --name=node \
     --volume $(pwd)/pki/nodes/node:/etc/webmesh/tls \
     ghcr.io/webmeshproj/node:latest \
-        --global.no-ipv6 \
+        --global.disable-ipv6 \
         --global.mtls \
         --global.tls-ca-file=/etc/webmesh/tls/ca.crt \
         --global.tls-cert-file=/etc/webmesh/tls/tls.crt \
