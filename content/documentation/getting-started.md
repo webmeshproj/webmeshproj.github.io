@@ -65,7 +65,7 @@ By default the following ports are used for communication between nodes:
 | 9000  | TCP      | Raft        |
 | 51820 | UDP      | WireGuard   |
 
-These are configurable via the `--services.grpc-listen-address`, `--raft.listen-address`, and `--wireguard.listen-port` flags respectively.
+These are configurable via the `--services.api.listen-address`, `--raft.listen-address`, and `--wireguard.listen-port` flags respectively.
 
 ## Join a Network
 
