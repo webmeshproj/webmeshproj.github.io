@@ -23,6 +23,7 @@ Global flags are supported, but do not override TLS and some WireGuard configura
 | `--global.endpoints` | `GLOBAL_ENDPOINTS` | `global.endpoints` | `[]` | Additional endpoints to advertise when joining. |
 | `--global.insecure` | `GLOBAL_INSECURE` | `global.insecure` | `false` | Disable TLS. |
 | `--global.insecure-skip-verify` | `GLOBAL_INSECURE_SKIP_VERIFY` | `global.insecure-skip-verify` | `false` | Skip TLS verification. |
+| `--global.log-format` | `GLOBAL_LOG_FORMAT` | `global.log-format` | `text` | Log format. One of 'text' or 'json'. |
 | `--global.log-level` | `GLOBAL_LOG_LEVEL` | `global.log-level` | `info` | Log level. |
 | `--global.mtls` | `GLOBAL_MTLS` | `global.mtls` | `false` | Enable mutual TLS. |
 | `--global.primary-endpoint` | `GLOBAL_PRIMARY_ENDPOINT` | `global.primary-endpoint` |  | Primary endpoint to advertise when joining. |
@@ -119,6 +120,7 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 | CLI Flag | Config File | Default | Description |
 | -------- | ----------- | ------- | ----------- |
 | `--bridge.<mesh-id>.storage.in-memory` | `bridge.<mesh-id>.storage.in-memory` | `false` | Use in-memory storage |
+| `--bridge.<mesh-id>.storage.log-format` | `bridge.<mesh-id>.storage.log-format` | `text` | Log format for the storage provider |
 | `--bridge.<mesh-id>.storage.log-level` | `bridge.<mesh-id>.storage.log-level` | `info` | Log level for the storage provider |
 | `--bridge.<mesh-id>.storage.path` | `bridge.<mesh-id>.storage.path` | `/var/lib/webmesh/store` | Path to the storage directory |
 | `--bridge.<mesh-id>.storage.provider` | `bridge.<mesh-id>.storage.provider` | `raft` | Storage provider (defaults to raftstorage or passthrough depending on other options) |
@@ -146,7 +148,7 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 
 | CLI Flag | Config File | Default | Description |
 | -------- | ----------- | ------- | ----------- |
-| `--bridge.<mesh-id>.storage.external.config` | `bridge.<mesh-id>.storage.external.config` |  | Configuration to pass to the plugin as key value pairs |
+| `--bridge.<mesh-id>.storage.external.config` | `bridge.<mesh-id>.storage.external.config` | `{}` | Configuration to pass to the plugin as key value pairs |
 | `--bridge.<mesh-id>.storage.external.insecure` | `bridge.<mesh-id>.storage.external.insecure` | `false` | Use an insecure connection to the plugin server |
 | `--bridge.<mesh-id>.storage.external.server` | `bridge.<mesh-id>.storage.external.server` |  | Address of a server for the plugin |
 | `--bridge.<mesh-id>.storage.external.tls-ca-file` | `bridge.<mesh-id>.storage.external.tls-ca-file` |  | Path to a CA for verifying certificates |
@@ -171,11 +173,12 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 | `--bridge.<mesh-id>.wireguard.endpoints` | `bridge.<mesh-id>.wireguard.endpoints` | `[]` | Additional WireGuard endpoints to broadcast when joining. |
 | `--bridge.<mesh-id>.wireguard.force-interface-name` | `bridge.<mesh-id>.wireguard.force-interface-name` | `false` | Force the use of the given name by deleting any pre-existing interface with the same name. |
 | `--bridge.<mesh-id>.wireguard.force-tun` | `bridge.<mesh-id>.wireguard.force-tun` | `false` | Force the use of a TUN interface. |
-| `--bridge.<mesh-id>.wireguard.interface-name` | `bridge.<mesh-id>.wireguard.interface-name` | `webmesh+` | The name of the interface. |
+| `--bridge.<mesh-id>.wireguard.interface-name` | `bridge.<mesh-id>.wireguard.interface-name` | `webmesh0` | The name of the interface. |
 | `--bridge.<mesh-id>.wireguard.key-file` | `bridge.<mesh-id>.wireguard.key-file` |  | The path to the WireGuard private key. If it does not exist it will be created. |
 | `--bridge.<mesh-id>.wireguard.key-rotation-interval` | `bridge.<mesh-id>.wireguard.key-rotation-interval` | `168h0m0s` | The interval to rotate wireguard keys. Set this to 0 to disable key rotation. |
 | `--bridge.<mesh-id>.wireguard.listen-port` | `bridge.<mesh-id>.wireguard.listen-port` | `51820` | The port to listen on. |
 | `--bridge.<mesh-id>.wireguard.masquerade` | `bridge.<mesh-id>.wireguard.masquerade` | `false` | Enable masquerading of traffic from the wireguard interface. |
+| `--bridge.<mesh-id>.wireguard.modprobe` | `bridge.<mesh-id>.wireguard.modprobe` | `false` | Attempt to load the wireguard kernel module on linux systems. |
 | `--bridge.<mesh-id>.wireguard.mtu` | `bridge.<mesh-id>.wireguard.mtu` | `1420` | The MTU to use for the interface. |
 | `--bridge.<mesh-id>.wireguard.persistent-keepalive` | `bridge.<mesh-id>.wireguard.persistent-keepalive` | `0s` | The interval at which to send keepalive packets to peers. |
 | `--bridge.<mesh-id>.wireguard.record-metrics` | `bridge.<mesh-id>.wireguard.record-metrics` | `false` | Record WireGuard metrics. These are only exposed if the metrics server is enabled. |
@@ -198,6 +201,8 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 | CLI Flag | Config File | Default | Description |
 | -------- | ----------- | ------- | ----------- |
 | `--bridge.<mesh-id>.services.api.admin-enabled` | `bridge.<mesh-id>.services.api.admin-enabled` | `false` | Enable and register the AdminAPI. |
+| `--bridge.<mesh-id>.services.api.default-ipam-static-ipv4` | `bridge.<mesh-id>.services.api.default-ipam-static-ipv4` | `[]` | Static IPv4 assignments to use for the default IPAM. |
+| `--bridge.<mesh-id>.services.api.disable-default-ipam` | `bridge.<mesh-id>.services.api.disable-default-ipam` | `false` | Disable the default IPAM. |
 | `--bridge.<mesh-id>.services.api.disable-leader-proxy` | `bridge.<mesh-id>.services.api.disable-leader-proxy` | `false` | Disable the leader proxy. |
 | `--bridge.<mesh-id>.services.api.disabled` | `bridge.<mesh-id>.services.api.disabled` | `false` | Disable the API. This is ignored when joining as a Raft member. |
 | `--bridge.<mesh-id>.services.api.insecure` | `bridge.<mesh-id>.services.api.insecure` | `false` | Disable TLS. |
@@ -230,7 +235,6 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 | `--bridge.<mesh-id>.plugins.debug.listen-address` | `bridge.<mesh-id>.plugins.debug.listen-address` | `localhost:6060` | Address to lissten on |
 | `--bridge.<mesh-id>.plugins.debug.path-prefix` | `bridge.<mesh-id>.plugins.debug.path-prefix` | `/debug` | Path prefix to use for the debug server |
 | `--bridge.<mesh-id>.plugins.debug.pprof-profiles` | `bridge.<mesh-id>.plugins.debug.pprof-profiles` |  | Pprof profiles to enable (default: all) |
-| `--bridge.<mesh-id>.plugins.ipam.static-ipv4` | `bridge.<mesh-id>.plugins.ipam.static-ipv4` |  | Static IPv4 addresses to assign to nodes |
 | `--bridge.<mesh-id>.plugins.ldap.bind-dn` | `bridge.<mesh-id>.plugins.ldap.bind-dn` |  | DN to bind with |
 | `--bridge.<mesh-id>.plugins.ldap.bind-password` | `bridge.<mesh-id>.plugins.ldap.bind-password` |  | Password to bind with |
 | `--bridge.<mesh-id>.plugins.ldap.ca-file` | `bridge.<mesh-id>.plugins.ldap.ca-file` |  | Path to CA file to use to verify the LDAP server's certificate |

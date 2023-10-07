@@ -59,6 +59,7 @@ General Flags
 | `--global.endpoints` | `GLOBAL_ENDPOINTS` | `global.endpoints` | `[]` | Additional endpoints to advertise when joining. |
 | `--global.insecure` | `GLOBAL_INSECURE` | `global.insecure` | `false` | Disable TLS. |
 | `--global.insecure-skip-verify` | `GLOBAL_INSECURE_SKIP_VERIFY` | `global.insecure-skip-verify` | `false` | Skip TLS verification. |
+| `--global.log-format` | `GLOBAL_LOG_FORMAT` | `global.log-format` | `text` | Log format. One of 'text' or 'json'. |
 | `--global.log-level` | `GLOBAL_LOG_LEVEL` | `global.log-level` | `info` | Log level. |
 | `--global.mtls` | `GLOBAL_MTLS` | `global.mtls` | `false` | Enable mutual TLS. |
 | `--global.primary-endpoint` | `GLOBAL_PRIMARY_ENDPOINT` | `global.primary-endpoint` |  | Primary endpoint to advertise when joining. |
@@ -134,6 +135,7 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 | CLI Flag | Env Var | Config File | Default | Description |
 | -------- | ------- | ----------- | ------- | ----------- |
 | `--storage.in-memory` | `STORAGE_IN_MEMORY` | `storage.in-memory` | `false` | Use in-memory storage |
+| `--storage.log-format` | `STORAGE_LOG_FORMAT` | `storage.log-format` | `text` | Log format for the storage provider |
 | `--storage.log-level` | `STORAGE_LOG_LEVEL` | `storage.log-level` | `info` | Log level for the storage provider |
 | `--storage.path` | `STORAGE_PATH` | `storage.path` | `/var/lib/webmesh/store` | Path to the storage directory |
 | `--storage.provider` | `STORAGE_PROVIDER` | `storage.provider` | `raft` | Storage provider (defaults to raftstorage or passthrough depending on other options) |
@@ -161,7 +163,7 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 
 | CLI Flag | Env Var | Config File | Default | Description |
 | -------- | ------- | ----------- | ------- | ----------- |
-| `--storage.external.config` | `STORAGE_EXTERNAL_CONFIG` | `storage.external.config` |  | Configuration to pass to the plugin as key value pairs |
+| `--storage.external.config` | `STORAGE_EXTERNAL_CONFIG` | `storage.external.config` | `{}` | Configuration to pass to the plugin as key value pairs |
 | `--storage.external.insecure` | `STORAGE_EXTERNAL_INSECURE` | `storage.external.insecure` | `false` | Use an insecure connection to the plugin server |
 | `--storage.external.server` | `STORAGE_EXTERNAL_SERVER` | `storage.external.server` |  | Address of a server for the plugin |
 | `--storage.external.tls-ca-file` | `STORAGE_EXTERNAL_TLS_CA_FILE` | `storage.external.tls-ca-file` |  | Path to a CA for verifying certificates |
@@ -186,11 +188,12 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 | `--wireguard.endpoints` | `WIREGUARD_ENDPOINTS` | `wireguard.endpoints` | `[]` | Additional WireGuard endpoints to broadcast when joining. |
 | `--wireguard.force-interface-name` | `WIREGUARD_FORCE_INTERFACE_NAME` | `wireguard.force-interface-name` | `false` | Force the use of the given name by deleting any pre-existing interface with the same name. |
 | `--wireguard.force-tun` | `WIREGUARD_FORCE_TUN` | `wireguard.force-tun` | `false` | Force the use of a TUN interface. |
-| `--wireguard.interface-name` | `WIREGUARD_INTERFACE_NAME` | `wireguard.interface-name` | `webmesh+` | The name of the interface. |
+| `--wireguard.interface-name` | `WIREGUARD_INTERFACE_NAME` | `wireguard.interface-name` | `webmesh0` | The name of the interface. |
 | `--wireguard.key-file` | `WIREGUARD_KEY_FILE` | `wireguard.key-file` |  | The path to the WireGuard private key. If it does not exist it will be created. |
 | `--wireguard.key-rotation-interval` | `WIREGUARD_KEY_ROTATION_INTERVAL` | `wireguard.key-rotation-interval` | `168h0m0s` | The interval to rotate wireguard keys. Set this to 0 to disable key rotation. |
 | `--wireguard.listen-port` | `WIREGUARD_LISTEN_PORT` | `wireguard.listen-port` | `51820` | The port to listen on. |
 | `--wireguard.masquerade` | `WIREGUARD_MASQUERADE` | `wireguard.masquerade` | `false` | Enable masquerading of traffic from the wireguard interface. |
+| `--wireguard.modprobe` | `WIREGUARD_MODPROBE` | `wireguard.modprobe` | `false` | Attempt to load the wireguard kernel module on linux systems. |
 | `--wireguard.mtu` | `WIREGUARD_MTU` | `wireguard.mtu` | `1420` | The MTU to use for the interface. |
 | `--wireguard.persistent-keepalive` | `WIREGUARD_PERSISTENT_KEEPALIVE` | `wireguard.persistent-keepalive` | `0s` | The interval at which to send keepalive packets to peers. |
 | `--wireguard.record-metrics` | `WIREGUARD_RECORD_METRICS` | `wireguard.record-metrics` | `false` | Record WireGuard metrics. These are only exposed if the metrics server is enabled. |
@@ -213,6 +216,8 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 | CLI Flag | Env Var | Config File | Default | Description |
 | -------- | ------- | ----------- | ------- | ----------- |
 | `--services.api.admin-enabled` | `SERVICES_API_ADMIN_ENABLED` | `services.api.admin-enabled` | `false` | Enable and register the AdminAPI. |
+| `--services.api.default-ipam-static-ipv4` | `SERVICES_API_DEFAULT_IPAM_STATIC_IPV4` | `services.api.default-ipam-static-ipv4` | `[]` | Static IPv4 assignments to use for the default IPAM. |
+| `--services.api.disable-default-ipam` | `SERVICES_API_DISABLE_DEFAULT_IPAM` | `services.api.disable-default-ipam` | `false` | Disable the default IPAM. |
 | `--services.api.disable-leader-proxy` | `SERVICES_API_DISABLE_LEADER_PROXY` | `services.api.disable-leader-proxy` | `false` | Disable the leader proxy. |
 | `--services.api.disabled` | `SERVICES_API_DISABLED` | `services.api.disabled` | `false` | Disable the API. This is ignored when joining as a Raft member. |
 | `--services.api.insecure` | `SERVICES_API_INSECURE` | `services.api.insecure` | `false` | Disable TLS. |
@@ -256,7 +261,6 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 | `--plugins.debug.listen-address` | `PLUGINS_DEBUG_LISTEN_ADDRESS` | `plugins.debug.listen-address` | `localhost:6060` | Address to lissten on |
 | `--plugins.debug.path-prefix` | `PLUGINS_DEBUG_PATH_PREFIX` | `plugins.debug.path-prefix` | `/debug` | Path prefix to use for the debug server |
 | `--plugins.debug.pprof-profiles` | `PLUGINS_DEBUG_PPROF_PROFILES` | `plugins.debug.pprof-profiles` |  | Pprof profiles to enable (default: all) |
-| `--plugins.ipam.static-ipv4` | `PLUGINS_IPAM_STATIC_IPV4` | `plugins.ipam.static-ipv4` |  | Static IPv4 addresses to assign to nodes |
 | `--plugins.ldap.bind-dn` | `PLUGINS_LDAP_BIND_DN` | `plugins.ldap.bind-dn` |  | DN to bind with |
 | `--plugins.ldap.bind-password` | `PLUGINS_LDAP_BIND_PASSWORD` | `plugins.ldap.bind-password` |  | Password to bind with |
 | `--plugins.ldap.ca-file` | `PLUGINS_LDAP_CA_FILE` | `plugins.ldap.ca-file` |  | Path to CA file to use to verify the LDAP server's certificate |
