@@ -135,7 +135,7 @@ we generated earlier.
 ```bash
 # Copy the certificates to the local machine. They are also base64 encoded in the admin configuration
 # we generated earlier.
-sudo cp pki/nodes/server/* /etc/webmesh/tls/
+sudo cp pki/nodes/admin/* /etc/webmesh/tls/
 ```
 
 ```bash
