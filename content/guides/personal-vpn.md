@@ -92,6 +92,7 @@ ExecStart=/usr/bin/webmesh-node \
     --global.detect-endpoints \
     --global.detect-private-endpoints \
     --global.mtls \
+    --global.verify-chain-only \
     --global.tls-cert-file=/etc/webmesh/tls/tls.crt \
     --global.tls-key-file=/etc/webmesh/tls/tls.key \
     --global.tls-ca-file=/etc/webmesh/tls/ca.crt \
@@ -141,6 +142,7 @@ sudo cp pki/nodes/admin/* /etc/webmesh/tls/
 ```bash
 sudo webmesh-node \
     --global.mtls \
+    --global.verify-chain-only \
     --global.tls-cert-file=/etc/webmesh/tls/tls.crt \
     --global.tls-key-file=/etc/webmesh/tls/tls.key \
     --global.tls-ca-file=/etc/webmesh/tls/ca.crt \
