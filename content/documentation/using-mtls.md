@@ -103,7 +103,7 @@ docker run --rm --privileged \
         --global.tls-cert-file=/etc/webmesh/tls/tls.crt \
         --global.tls-key-file=/etc/webmesh/tls/tls.key \
         --global.verify-chain-only \
-        --bootstrap.enabled \
+        --bootstrap.enabled
 ```
 
 As explained in the [configuration](../configuration/) section, you may replace the command line flags with environment variables or a configuration file.
