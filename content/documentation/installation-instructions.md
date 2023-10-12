@@ -170,8 +170,29 @@ apk add --allow-untrusted webmesh_${VERSION:1}_linux_${ARCH}.apk
 
 #### Arch
 
-There is a `pacman` package available, but it is not yet signed with a GPG key.
-For now, you can use one of the AUR packages:
+There are currently three available methods for installing to Arch Linux (and derivatives).
+
+##### Pacman
+
+You can download and verify the latest `pkg.tar.zst` package from the releases page and install it with `pacman`.
+
+```bash
+# Change this to a specific release version if you'd like
+# Assumes you have jq and curl installed
+VERSION=$(curl -L -s https://api.github.com/repos/webmeshproj/webmesh/releases/latest | jq -r .name)
+
+# Download the Public PGP key
+KEY_ID="18B4185782B187EC464384CF1A784938280E355E"
+sudo pacman-key --recv-keys ${KEY_ID}
+sudo pacman-key --lsign-key ${KEY_ID}
+
+# Assumes amd64 architecture
+sudo pacman -U https://github.com/webmeshproj/webmesh/releases/download/${VERSION}/webmesh_${VERSION:1}_linux_amd64.pkg.tar.zst
+```
+
+##### AUR
+
+There are two AUR packages maintained as well. You can install them with your favorite AUR helper.
 
 - [webmesh-bin](https://aur.archlinux.org/packages/webmesh-bin): Latest pre-built release
 - [webmesh-git](https://aur.archlinux.org/packages/webmesh-git): Builds from source (currently builds from `main` branch)
