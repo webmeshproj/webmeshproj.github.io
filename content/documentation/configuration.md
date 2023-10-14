@@ -73,6 +73,8 @@ General Flags
 
 | CLI Flag | Env Var | Config File | Default | Description |
 | -------- | ------- | ----------- | ------- | ----------- |
+| `--mesh.default-ipam-static-ipv4` | `MESH_DEFAULT_IPAM_STATIC_IPV4` | `mesh.default-ipam-static-ipv4` | `[]` | Static IPv4 assignments to use for the default IPAM. |
+| `--mesh.disable-default-ipam` | `MESH_DISABLE_DEFAULT_IPAM` | `mesh.disable-default-ipam` | `false` | Disable the default IPAM. |
 | `--mesh.disable-feature-advertisement` | `MESH_DISABLE_FEATURE_ADVERTISEMENT` | `mesh.disable-feature-advertisement` | `false` | Disable feature advertisement. |
 | `--mesh.disable-ipv4` | `MESH_DISABLE_IPV4` | `mesh.disable-ipv4` | `false` | Disable IPv4 usage. |
 | `--mesh.disable-ipv6` | `MESH_DISABLE_IPV6` | `mesh.disable-ipv6` | `false` | Disable IPv6 usage. |
@@ -97,6 +99,8 @@ General Flags
 | -------- | ------- | ----------- | ------- | ----------- |
 | `--auth.basic.password` | `AUTH_BASIC_PASSWORD` | `auth.basic.password` |  | Basic auth password. |
 | `--auth.basic.username` | `AUTH_BASIC_USERNAME` | `auth.basic.username` |  | Basic auth username. |
+| `--auth.id-auth.alias` | `AUTH_ID_AUTH_ALIAS` | `auth.id-auth.alias` |  | Alias to attempt to register with our ID. |
+| `--auth.id-auth.enabled` | `AUTH_ID_AUTH_ENABLED` | `auth.id-auth.enabled` | `false` | Enable ID authentication. |
 | `--auth.ldap.password` | `AUTH_LDAP_PASSWORD` | `auth.ldap.password` |  | LDAP auth password. |
 | `--auth.ldap.username` | `AUTH_LDAP_USERNAME` | `auth.ldap.username` |  | LDAP auth username. |
 | `--auth.mtls.cert-data` | `AUTH_MTLS_CERT_DATA` | `auth.mtls.cert-data` |  | Base64 encoded TLS certificate data to present when joining. |
@@ -117,13 +121,14 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 | `--bootstrap.enabled` | `BOOTSTRAP_ENABLED` | `bootstrap.enabled` | `false` | Attempt to bootstrap a new cluster |
 | `--bootstrap.force` | `BOOTSTRAP_FORCE` | `bootstrap.force` | `false` | Force new bootstrap |
 | `--bootstrap.ipv4-network` | `BOOTSTRAP_IPV4_NETWORK` | `bootstrap.ipv4-network` | `172.16.0.0/12` | IPv4 network of the mesh to write to the database when bootstraping a new cluster |
+| `--bootstrap.ipv6-network` | `BOOTSTRAP_IPV6_NETWORK` | `bootstrap.ipv6-network` |  | IPv6 network of the mesh to write to the database when bootstraping a new cluster, if left unset one will be generated |
 | `--bootstrap.mesh-domain` | `BOOTSTRAP_MESH_DOMAIN` | `bootstrap.mesh-domain` | `webmesh.internal` | Domain of the mesh to write to the database when bootstraping a new cluster |
 | `--bootstrap.transport.psk` | `BOOTSTRAP_TRANSPORT_PSK` | `bootstrap.transport.psk` |  | Pre-shared key to use when using libp2p to bootstrap |
 | `--bootstrap.transport.rendezvous` | `BOOTSTRAP_TRANSPORT_RENDEZVOUS` | `bootstrap.transport.rendezvous` |  | Rendezvous string to use when using libp2p to bootstrap |
 | `--bootstrap.transport.rendezvous-linger` | `BOOTSTRAP_TRANSPORT_RENDEZVOUS_LINGER` | `bootstrap.transport.rendezvous-linger` | `1m0s` | Amount of time to wait for other nodes to join when using libp2p to bootstrap |
 | `--bootstrap.transport.rendezvous-nodes` | `BOOTSTRAP_TRANSPORT_RENDEZVOUS_NODES` | `bootstrap.transport.rendezvous-nodes` | `[]` | List of node IDs to use when using libp2p to bootstrap |
 | `--bootstrap.transport.server-grpc-ports` | `BOOTSTRAP_TRANSPORT_SERVER_GRPC_PORTS` | `bootstrap.transport.server-grpc-ports` | `[]` | Map of node IDs to gRPC ports to bootstrap with |
-| `--bootstrap.transport.tcp-advertise-address` | `BOOTSTRAP_TRANSPORT_TCP_ADVERTISE_ADDRESS` | `bootstrap.transport.tcp-advertise-address` |  | Address to advertise for raft consensus |
+| `--bootstrap.transport.tcp-advertise-address` | `BOOTSTRAP_TRANSPORT_TCP_ADVERTISE_ADDRESS` | `bootstrap.transport.tcp-advertise-address` | `127.0.0.1:9001` | Address to advertise for raft consensus |
 | `--bootstrap.transport.tcp-connect-timeout` | `BOOTSTRAP_TRANSPORT_TCP_CONNECT_TIMEOUT` | `bootstrap.transport.tcp-connect-timeout` | `3s` | Maximum amount of time to wait for a TCP connection to be established |
 | `--bootstrap.transport.tcp-connection-pool` | `BOOTSTRAP_TRANSPORT_TCP_CONNECTION_POOL` | `bootstrap.transport.tcp-connection-pool` | `0` | Maximum number of TCP connections to maintain to other nodes |
 | `--bootstrap.transport.tcp-listen-address` | `BOOTSTRAP_TRANSPORT_TCP_LISTEN_ADDRESS` | `bootstrap.transport.tcp-listen-address` | `[::]:9001` | Address to use when using TCP raft consensus to bootstrap |
@@ -135,7 +140,7 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 | CLI Flag | Env Var | Config File | Default | Description |
 | -------- | ------- | ----------- | ------- | ----------- |
 | `--storage.in-memory` | `STORAGE_IN_MEMORY` | `storage.in-memory` | `false` | Use in-memory storage |
-| `--storage.log-format` | `STORAGE_LOG_FORMAT` | `storage.log-format` | `text` | Log format for the storage provider |
+| `--storage.log-format` | `STORAGE_LOG_FORMAT` | `storage.log-format` |  | Log format for the storage provider |
 | `--storage.log-level` | `STORAGE_LOG_LEVEL` | `storage.log-level` | `info` | Log level for the storage provider |
 | `--storage.path` | `STORAGE_PATH` | `storage.path` | `/var/lib/webmesh/store` | Path to the storage directory |
 | `--storage.provider` | `STORAGE_PROVIDER` | `storage.provider` | `raft` | Storage provider (defaults to raftstorage or passthrough depending on other options) |
@@ -185,6 +190,7 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 
 | CLI Flag | Env Var | Config File | Default | Description |
 | -------- | ------- | ----------- | ------- | ----------- |
+| `--wireguard.disable-full-tunnel` | `WIREGUARD_DISABLE_FULL_TUNNEL` | `wireguard.disable-full-tunnel` | `false` | Ignore routes for a default gateway. |
 | `--wireguard.endpoints` | `WIREGUARD_ENDPOINTS` | `wireguard.endpoints` | `[]` | Additional WireGuard endpoints to broadcast when joining. |
 | `--wireguard.force-interface-name` | `WIREGUARD_FORCE_INTERFACE_NAME` | `wireguard.force-interface-name` | `false` | Force the use of the given name by deleting any pre-existing interface with the same name. |
 | `--wireguard.force-tun` | `WIREGUARD_FORCE_TUN` | `wireguard.force-tun` | `false` | Force the use of a TUN interface. |
@@ -216,13 +222,13 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 | CLI Flag | Env Var | Config File | Default | Description |
 | -------- | ------- | ----------- | ------- | ----------- |
 | `--services.api.admin-enabled` | `SERVICES_API_ADMIN_ENABLED` | `services.api.admin-enabled` | `false` | Enable and register the AdminAPI. |
-| `--services.api.default-ipam-static-ipv4` | `SERVICES_API_DEFAULT_IPAM_STATIC_IPV4` | `services.api.default-ipam-static-ipv4` | `[]` | Static IPv4 assignments to use for the default IPAM. |
-| `--services.api.disable-default-ipam` | `SERVICES_API_DISABLE_DEFAULT_IPAM` | `services.api.disable-default-ipam` | `false` | Disable the default IPAM. |
 | `--services.api.disable-leader-proxy` | `SERVICES_API_DISABLE_LEADER_PROXY` | `services.api.disable-leader-proxy` | `false` | Disable the leader proxy. |
 | `--services.api.disabled` | `SERVICES_API_DISABLED` | `services.api.disabled` | `false` | Disable the API. This is ignored when joining as a Raft member. |
 | `--services.api.insecure` | `SERVICES_API_INSECURE` | `services.api.insecure` | `false` | Disable TLS. |
 | `--services.api.listen-address` | `SERVICES_API_LISTEN_ADDRESS` | `services.api.listen-address` | `[::]:8443` | gRPC listen address. |
 | `--services.api.mesh-enabled` | `SERVICES_API_MESH_ENABLED` | `services.api.mesh-enabled` | `false` | Enable and register the MeshAPI. |
+| `--services.api.mtls` | `SERVICES_API_MTLS` | `services.api.mtls` | `false` | Require clients to provide a client certificate. |
+| `--services.api.mtls-client-ca-file` | `SERVICES_API_MTLS_CLIENT_CA_FILE` | `services.api.mtls-client-ca-file` |  | Client CA file if not provided by the mtls auth plugin |
 | `--services.api.tls-cert-data` | `SERVICES_API_TLS_CERT_DATA` | `services.api.tls-cert-data` |  | TLS certificate data. |
 | `--services.api.tls-cert-file` | `SERVICES_API_TLS_CERT_FILE` | `services.api.tls-cert-file` |  | TLS certificate file. |
 | `--services.api.tls-key-data` | `SERVICES_API_TLS_KEY_DATA` | `services.api.tls-key-data` |  | TLS key data. |
@@ -233,8 +239,9 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 | `--services.meshdns.disable-forwarding` | `SERVICES_MESHDNS_DISABLE_FORWARDING` | `services.meshdns.disable-forwarding` | `false` | Disable forwarding requests. |
 | `--services.meshdns.enabled` | `SERVICES_MESHDNS_ENABLED` | `services.meshdns.enabled` | `false` | Enable mesh DNS. |
 | `--services.meshdns.forwarders` | `SERVICES_MESHDNS_FORWARDERS` | `services.meshdns.forwarders` | `[]` | DNS forwarders (default = system resolvers). |
+| `--services.meshdns.include-system-resolvers` | `SERVICES_MESHDNS_INCLUDE_SYSTEM_RESOLVERS` | `services.meshdns.include-system-resolvers` | `false` | Include system resolvers in any provided forwarders list. |
 | `--services.meshdns.ipv6-only` | `SERVICES_MESHDNS_IPV6_ONLY` | `services.meshdns.ipv6-only` | `false` | Only respond to IPv6 requests. |
-| `--services.meshdns.listen-tcp` | `SERVICES_MESHDNS_LISTEN_TCP` | `services.meshdns.listen-tcp` | `[::]:53` | TCP address to listen on for DNS requests. |
+| `--services.meshdns.isten-tcp` | `SERVICES_MESHDNS_ISTEN_TCP` | `services.meshdns.isten-tcp` | `[::]:53` | TCP address to listen on for DNS requests. |
 | `--services.meshdns.listen-udp` | `SERVICES_MESHDNS_LISTEN_UDP` | `services.meshdns.listen-udp` | `[::]:53` | UDP address to listen on for DNS requests. |
 | `--services.meshdns.request-timeout` | `SERVICES_MESHDNS_REQUEST_TIMEOUT` | `services.meshdns.request-timeout` | `5s` | DNS request timeout. |
 | `--services.meshdns.reuse-port` | `SERVICES_MESHDNS_REUSE_PORT` | `services.meshdns.reuse-port` | `0` | Enable SO_REUSEPORT for mesh DNS. Only available on Linux systems. |
@@ -242,6 +249,16 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 | `--services.metrics.enabled` | `SERVICES_METRICS_ENABLED` | `services.metrics.enabled` | `false` | Enable gRPC metrics. |
 | `--services.metrics.listen-address` | `SERVICES_METRICS_LISTEN_ADDRESS` | `services.metrics.listen-address` | `[::]:8080` | gRPC metrics listen address. |
 | `--services.metrics.path` | `SERVICES_METRICS_PATH` | `services.metrics.path` | `/metrics` | gRPC metrics path. |
+| `--services.registrar.enabled` | `SERVICES_REGISTRAR_ENABLED` | `services.registrar.enabled` | `false` | Enable the registrar service. |
+| `--services.registrar.id-auth.allowed-ids` | `SERVICES_REGISTRAR_ID_AUTH_ALLOWED_IDS` | `services.registrar.id-auth.allowed-ids` | `[]` | List of allowed peer IDs |
+| `--services.registrar.id-auth.id-files` | `SERVICES_REGISTRAR_ID_AUTH_ID_FILES` | `services.registrar.id-auth.id-files` | `[]` | Path to a file containing a list of allowed peer IDs |
+| `--services.registrar.id-auth.insecure-allow-all` | `SERVICES_REGISTRAR_ID_AUTH_INSECURE_ALLOW_ALL` | `services.registrar.id-auth.insecure-allow-all` | `false` | Allow all peer IDs. This is insecure and should only be used for testing. |
+| `--services.registrar.id-auth.remote-fetch-retries` | `SERVICES_REGISTRAR_ID_AUTH_REMOTE_FETCH_RETRIES` | `services.registrar.id-auth.remote-fetch-retries` | `5` | Number of times to retry fetching a remote ID file. Defaults to 5. Set to -1 to disable retries. |
+| `--services.registrar.id-auth.remote-fetch-retry-interval` | `SERVICES_REGISTRAR_ID_AUTH_REMOTE_FETCH_RETRY_INTERVAL` | `services.registrar.id-auth.remote-fetch-retry-interval` | `3s` | Interval to wait between retries to fetch a remote ID file. Defaults to 3 seconds. |
+| `--services.registrar.id-auth.time-skew` | `SERVICES_REGISTRAR_ID_AUTH_TIME_SKEW` | `services.registrar.id-auth.time-skew` | `1` | Maximum allowed time skew between the client and server as a multiple of 30 seconds. 0 defaults to 30 seconds. Set to -1 to disable time skew checking. |
+| `--services.registrar.id-auth.watch-id-files` | `SERVICES_REGISTRAR_ID_AUTH_WATCH_ID_FILES` | `services.registrar.id-auth.watch-id-files` | `false` | Watch ID files for changes |
+| `--services.registrar.id-auth.watch-interval` | `SERVICES_REGISTRAR_ID_AUTH_WATCH_INTERVAL` | `services.registrar.id-auth.watch-interval` | `1m0s` | Interval to poll for changes to remote ID files. When unset or less than zero, defaults to 1 minute. |
+| `--services.registrar.private` | `SERVICES_REGISTRAR_PRIVATE` | `services.registrar.private` | `false` | Enable private lookups. |
 | `--services.turn.enabled` | `SERVICES_TURN_ENABLED` | `services.turn.enabled` | `false` | Enable TURN server. |
 | `--services.turn.endpoint` | `SERVICES_TURN_ENDPOINT` | `services.turn.endpoint` |  | TURN endpoint to advertise. |
 | `--services.turn.listen-address` | `SERVICES_TURN_LISTEN_ADDRESS` | `services.turn.listen-address` | `[::]:3478` | Address to listen on for STUN/TURN requests. |
@@ -261,6 +278,14 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 | `--plugins.debug.listen-address` | `PLUGINS_DEBUG_LISTEN_ADDRESS` | `plugins.debug.listen-address` | `localhost:6060` | Address to lissten on |
 | `--plugins.debug.path-prefix` | `PLUGINS_DEBUG_PATH_PREFIX` | `plugins.debug.path-prefix` | `/debug` | Path prefix to use for the debug server |
 | `--plugins.debug.pprof-profiles` | `PLUGINS_DEBUG_PPROF_PROFILES` | `plugins.debug.pprof-profiles` |  | Pprof profiles to enable (default: all) |
+| `--plugins.id-auth.allowed-ids` | `PLUGINS_ID_AUTH_ALLOWED_IDS` | `plugins.id-auth.allowed-ids` | `[]` | List of allowed peer IDs |
+| `--plugins.id-auth.id-files` | `PLUGINS_ID_AUTH_ID_FILES` | `plugins.id-auth.id-files` | `[]` | Path to a file containing a list of allowed peer IDs |
+| `--plugins.id-auth.insecure-allow-all` | `PLUGINS_ID_AUTH_INSECURE_ALLOW_ALL` | `plugins.id-auth.insecure-allow-all` | `false` | Allow all peer IDs. This is insecure and should only be used for testing. |
+| `--plugins.id-auth.remote-fetch-retries` | `PLUGINS_ID_AUTH_REMOTE_FETCH_RETRIES` | `plugins.id-auth.remote-fetch-retries` | `0` | Number of times to retry fetching a remote ID file. Defaults to 5. Set to -1 to disable retries. |
+| `--plugins.id-auth.remote-fetch-retry-interval` | `PLUGINS_ID_AUTH_REMOTE_FETCH_RETRY_INTERVAL` | `plugins.id-auth.remote-fetch-retry-interval` | `0s` | Interval to wait between retries to fetch a remote ID file. Defaults to 3 seconds. |
+| `--plugins.id-auth.time-skew` | `PLUGINS_ID_AUTH_TIME_SKEW` | `plugins.id-auth.time-skew` | `0` | Maximum allowed time skew between the client and server as a multiple of 30 seconds. 0 defaults to 30 seconds. Set to -1 to disable time skew checking. |
+| `--plugins.id-auth.watch-id-files` | `PLUGINS_ID_AUTH_WATCH_ID_FILES` | `plugins.id-auth.watch-id-files` | `false` | Watch ID files for changes |
+| `--plugins.id-auth.watch-interval` | `PLUGINS_ID_AUTH_WATCH_INTERVAL` | `plugins.id-auth.watch-interval` | `0s` | Interval to poll for changes to remote ID files. When unset or less than zero, defaults to 1 minute. |
 | `--plugins.ldap.bind-dn` | `PLUGINS_LDAP_BIND_DN` | `plugins.ldap.bind-dn` |  | DN to bind with |
 | `--plugins.ldap.bind-password` | `PLUGINS_LDAP_BIND_PASSWORD` | `plugins.ldap.bind-password` |  | Password to bind with |
 | `--plugins.ldap.ca-file` | `PLUGINS_LDAP_CA_FILE` | `plugins.ldap.ca-file` |  | Path to CA file to use to verify the LDAP server's certificate |
