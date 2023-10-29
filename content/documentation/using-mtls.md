@@ -141,7 +141,7 @@ docker run --rm --privileged \
         --global.tls-cert-file=/etc/webmesh/tls/tls.crt \
         --global.tls-key-file=/etc/webmesh/tls/tls.key \
         --global.verify-chain-only \
-        --mesh.join-address=192.168.254.2:8443
+        --mesh.join-addresses=192.168.254.2:8443
 ```
 
 The flags are the same as the bootstrap node except for `--mesh.join-address` which specifies the address of the node we are joining.

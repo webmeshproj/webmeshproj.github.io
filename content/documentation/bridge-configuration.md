@@ -65,7 +65,8 @@ Global flags are supported, but do not override TLS and some WireGuard configura
 | `--bridge.<mesh-id>.mesh.disable-ipv6` | `bridge.<mesh-id>.mesh.disable-ipv6` | `false` | Disable IPv6 usage. |
 | `--bridge.<mesh-id>.mesh.grpc-advertise-port` | `bridge.<mesh-id>.mesh.grpc-advertise-port` | `0` | Port to advertise for gRPC. |
 | `--bridge.<mesh-id>.mesh.ice-peers` | `bridge.<mesh-id>.mesh.ice-peers` | `[]` | Peers to request direct edges to over ICE. |
-| `--bridge.<mesh-id>.mesh.join-address` | `bridge.<mesh-id>.mesh.join-address` |  | Address of a node to join. |
+| `--bridge.<mesh-id>.mesh.join-addresses` | `bridge.<mesh-id>.mesh.join-addresses` | `[]` | Addresses of nodes to join. |
+| `--bridge.<mesh-id>.mesh.join-multiaddrs` | `bridge.<mesh-id>.mesh.join-multiaddrs` | `[]` | Multiaddresses of nodes to join. |
 | `--bridge.<mesh-id>.mesh.libp2p-peers` | `bridge.<mesh-id>.mesh.libp2p-peers` | `[]` | Map of peer IDs to rendezvous strings for edges over libp2p. |
 | `--bridge.<mesh-id>.mesh.max-join-retries` | `bridge.<mesh-id>.mesh.max-join-retries` | `0` | Maximum number of join retries. |
 | `--bridge.<mesh-id>.mesh.meshdns-advertise-port` | `bridge.<mesh-id>.mesh.meshdns-advertise-port` | `0` | Port to advertise for DNS. |
@@ -108,10 +109,6 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 | `--bridge.<mesh-id>.bootstrap.ipv4-network` | `bridge.<mesh-id>.bootstrap.ipv4-network` |  | IPv4 network of the mesh to write to the database when bootstraping a new cluster |
 | `--bridge.<mesh-id>.bootstrap.ipv6-network` | `bridge.<mesh-id>.bootstrap.ipv6-network` |  | IPv6 network of the mesh to write to the database when bootstraping a new cluster, if left unset one will be generated |
 | `--bridge.<mesh-id>.bootstrap.mesh-domain` | `bridge.<mesh-id>.bootstrap.mesh-domain` |  | Domain of the mesh to write to the database when bootstraping a new cluster |
-| `--bridge.<mesh-id>.bootstrap.transport.psk` | `bridge.<mesh-id>.bootstrap.transport.psk` |  | Pre-shared key to use when using libp2p to bootstrap |
-| `--bridge.<mesh-id>.bootstrap.transport.rendezvous` | `bridge.<mesh-id>.bootstrap.transport.rendezvous` |  | Rendezvous string to use when using libp2p to bootstrap |
-| `--bridge.<mesh-id>.bootstrap.transport.rendezvous-linger` | `bridge.<mesh-id>.bootstrap.transport.rendezvous-linger` | `0s` | Amount of time to wait for other nodes to join when using libp2p to bootstrap |
-| `--bridge.<mesh-id>.bootstrap.transport.rendezvous-nodes` | `bridge.<mesh-id>.bootstrap.transport.rendezvous-nodes` | `[]` | List of node IDs to use when using libp2p to bootstrap |
 | `--bridge.<mesh-id>.bootstrap.transport.server-grpc-ports` | `bridge.<mesh-id>.bootstrap.transport.server-grpc-ports` | `[]` | Map of node IDs to gRPC ports to bootstrap with |
 | `--bridge.<mesh-id>.bootstrap.transport.tcp-advertise-address` | `bridge.<mesh-id>.bootstrap.transport.tcp-advertise-address` |  | Address to advertise for raft consensus |
 | `--bridge.<mesh-id>.bootstrap.transport.tcp-connect-timeout` | `bridge.<mesh-id>.bootstrap.transport.tcp-connect-timeout` | `0s` | Maximum amount of time to wait for a TCP connection to be established |
@@ -194,8 +191,6 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 
 | CLI Flag | Config File | Default | Description |
 | -------- | ----------- | ------- | ----------- |
-| `--bridge.<mesh-id>.discovery.announce` | `bridge.<mesh-id>.discovery.announce` | `false` | announce this peer to the discovery service |
-| `--bridge.<mesh-id>.discovery.announce-ttl` | `bridge.<mesh-id>.discovery.announce-ttl` | `0s` | TTL for the announcement |
 | `--bridge.<mesh-id>.discovery.bootstrap-servers` | `bridge.<mesh-id>.discovery.bootstrap-servers` | `[]` | list of bootstrap servers to use for the DHT |
 | `--bridge.<mesh-id>.discovery.connect-timeout` | `bridge.<mesh-id>.discovery.connect-timeout` | `0s` | timeout for connecting to a peer |
 | `--bridge.<mesh-id>.discovery.discover` | `bridge.<mesh-id>.discovery.discover` | `false` | use the libp2p kademlia DHT for discovery |
@@ -210,6 +205,12 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 | `--bridge.<mesh-id>.services.api.disable-leader-proxy` | `bridge.<mesh-id>.services.api.disable-leader-proxy` | `false` | Disable the leader proxy. |
 | `--bridge.<mesh-id>.services.api.disabled` | `bridge.<mesh-id>.services.api.disabled` | `false` | Disable the API. This is ignored when joining as a Raft member. |
 | `--bridge.<mesh-id>.services.api.insecure` | `bridge.<mesh-id>.services.api.insecure` | `false` | Disable TLS. |
+| `--bridge.<mesh-id>.services.api.libp2p.announce` | `bridge.<mesh-id>.services.api.libp2p.announce` | `false` | Announce this peer to the discovery service. |
+| `--bridge.<mesh-id>.services.api.libp2p.bootstrap-servers` | `bridge.<mesh-id>.services.api.libp2p.bootstrap-servers` | `[]` | List of bootstrap servers to use for the DHT. |
+| `--bridge.<mesh-id>.services.api.libp2p.connect-timeout` | `bridge.<mesh-id>.services.api.libp2p.connect-timeout` | `0s` | Timeout for connecting to a peer. |
+| `--bridge.<mesh-id>.services.api.libp2p.enabled` | `bridge.<mesh-id>.services.api.libp2p.enabled` | `false` | Enable the libp2p API. |
+| `--bridge.<mesh-id>.services.api.libp2p.local-addrs` | `bridge.<mesh-id>.services.api.libp2p.local-addrs` | `[]` | List of local addresses to announce to the discovery service. |
+| `--bridge.<mesh-id>.services.api.libp2p.rendezvous` | `bridge.<mesh-id>.services.api.libp2p.rendezvous` |  | Pre-shared key to use as a rendezvous point for peer discovery. |
 | `--bridge.<mesh-id>.services.api.listen-address` | `bridge.<mesh-id>.services.api.listen-address` |  | gRPC listen address. |
 | `--bridge.<mesh-id>.services.api.mesh-enabled` | `bridge.<mesh-id>.services.api.mesh-enabled` | `false` | Enable and register the MeshAPI. |
 | `--bridge.<mesh-id>.services.api.mtls` | `bridge.<mesh-id>.services.api.mtls` | `false` | Require clients to provide a client certificate. |

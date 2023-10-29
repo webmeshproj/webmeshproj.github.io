@@ -146,7 +146,7 @@ sudo webmesh-node \
     --global.tls-cert-file=/etc/webmesh/tls/tls.crt \
     --global.tls-key-file=/etc/webmesh/tls/tls.key \
     --global.tls-ca-file=/etc/webmesh/tls/ca.crt \
-    --mesh.join-address=$SERVER_IP:8443
+    --mesh.join-addresses=$SERVER_IP:8443
 ```
 
 To verify connectivity, you can use the `wg` utility or try to ping the bootstrap server.

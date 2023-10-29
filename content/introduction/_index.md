@@ -43,5 +43,6 @@ The current supported authentication methods are:
 - mTLS (recommended)
 - LDAP
 - Basic Auth
+- Identity Auth
 
 The main source and packages can be found in the [webmesh](https://github.com/webmeshproj/webmesh) repository.

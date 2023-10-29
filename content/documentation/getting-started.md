@@ -22,17 +22,8 @@ To see all available configuration options, run `webmesh-node --help`.
 A detailed description of each option is available in the [configuration reference](/documentation/configuration/).
 
 When using a configuration file, the file can be in TOML, YAML, or JSON format.
-It is first interpreted as a go-template with the following additional functions:
-
-- `env` - returns the value of the environment variable with the given name.
-- `file` - returns the contents of the file with the given name.
-
-After templating is complete, the file is parsed as the given format.
 
 ## Bootstrap a New Network
-
-If you'd like to play with the project on Kubernetes, there is a work-in-progress controller in the [operator](https://github.com/webmeshproj/operator/) repository.
-It works fine on most clusters, including ephemeral docker-based ones, but is not yet ready for production use.
 
 A simple bootstrap node may be started with the following command:
 
@@ -69,13 +60,22 @@ These are configurable via the `--services.api.listen-address`, `--raft.listen-a
 
 ## Join a Network
 
+After the bootstrap node is running we can start the regular node.
+Most docker configurations will automatically create a DNS alias for you on the docker network.
+For the sake of completeness and avoiding confusion we'll lookup the IP address of the bootstrap node.
+
+```bash
+$ docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' bootstrap-node
+192.168.254.2
+```
+
 You can connect another container to the network by running the following command:
 
 ```bash
 docker run --rm --privileged ghcr.io/webmeshproj/node:latest \
     --global.insecure \
     --global.disable-ipv6 \
-    --mesh.join-address=bootstrap-node:8443
+    --mesh.join-addresses=192.168.254.2:8443
 ```
 
 Depending on your docker network configuration, you may need to use the IP address of the bootstrap node instead of its hostname.

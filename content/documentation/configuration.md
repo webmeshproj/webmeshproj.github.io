@@ -80,7 +80,8 @@ General Flags
 | `--mesh.disable-ipv6` | `MESH_DISABLE_IPV6` | `mesh.disable-ipv6` | `false` | Disable IPv6 usage. |
 | `--mesh.grpc-advertise-port` | `MESH_GRPC_ADVERTISE_PORT` | `mesh.grpc-advertise-port` | `8443` | Port to advertise for gRPC. |
 | `--mesh.ice-peers` | `MESH_ICE_PEERS` | `mesh.ice-peers` | `[]` | Peers to request direct edges to over ICE. |
-| `--mesh.join-address` | `MESH_JOIN_ADDRESS` | `mesh.join-address` |  | Address of a node to join. |
+| `--mesh.join-addresses` | `MESH_JOIN_ADDRESSES` | `mesh.join-addresses` | `[]` | Addresses of nodes to join. |
+| `--mesh.join-multiaddrs` | `MESH_JOIN_MULTIADDRS` | `mesh.join-multiaddrs` | `[]` | Multiaddresses of nodes to join. |
 | `--mesh.libp2p-peers` | `MESH_LIBP2P_PEERS` | `mesh.libp2p-peers` | `[]` | Map of peer IDs to rendezvous strings for edges over libp2p. |
 | `--mesh.max-join-retries` | `MESH_MAX_JOIN_RETRIES` | `mesh.max-join-retries` | `15` | Maximum number of join retries. |
 | `--mesh.meshdns-advertise-port` | `MESH_MESHDNS_ADVERTISE_PORT` | `mesh.meshdns-advertise-port` | `53` | Port to advertise for DNS. |
@@ -123,10 +124,6 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 | `--bootstrap.ipv4-network` | `BOOTSTRAP_IPV4_NETWORK` | `bootstrap.ipv4-network` | `172.16.0.0/12` | IPv4 network of the mesh to write to the database when bootstraping a new cluster |
 | `--bootstrap.ipv6-network` | `BOOTSTRAP_IPV6_NETWORK` | `bootstrap.ipv6-network` |  | IPv6 network of the mesh to write to the database when bootstraping a new cluster, if left unset one will be generated |
 | `--bootstrap.mesh-domain` | `BOOTSTRAP_MESH_DOMAIN` | `bootstrap.mesh-domain` | `webmesh.internal` | Domain of the mesh to write to the database when bootstraping a new cluster |
-| `--bootstrap.transport.psk` | `BOOTSTRAP_TRANSPORT_PSK` | `bootstrap.transport.psk` |  | Pre-shared key to use when using libp2p to bootstrap |
-| `--bootstrap.transport.rendezvous` | `BOOTSTRAP_TRANSPORT_RENDEZVOUS` | `bootstrap.transport.rendezvous` |  | Rendezvous string to use when using libp2p to bootstrap |
-| `--bootstrap.transport.rendezvous-linger` | `BOOTSTRAP_TRANSPORT_RENDEZVOUS_LINGER` | `bootstrap.transport.rendezvous-linger` | `1m0s` | Amount of time to wait for other nodes to join when using libp2p to bootstrap |
-| `--bootstrap.transport.rendezvous-nodes` | `BOOTSTRAP_TRANSPORT_RENDEZVOUS_NODES` | `bootstrap.transport.rendezvous-nodes` | `[]` | List of node IDs to use when using libp2p to bootstrap |
 | `--bootstrap.transport.server-grpc-ports` | `BOOTSTRAP_TRANSPORT_SERVER_GRPC_PORTS` | `bootstrap.transport.server-grpc-ports` | `[]` | Map of node IDs to gRPC ports to bootstrap with |
 | `--bootstrap.transport.tcp-advertise-address` | `BOOTSTRAP_TRANSPORT_TCP_ADVERTISE_ADDRESS` | `bootstrap.transport.tcp-advertise-address` | `127.0.0.1:9001` | Address to advertise for raft consensus |
 | `--bootstrap.transport.tcp-connect-timeout` | `BOOTSTRAP_TRANSPORT_TCP_CONNECT_TIMEOUT` | `bootstrap.transport.tcp-connect-timeout` | `3s` | Maximum amount of time to wait for a TCP connection to be established |
@@ -209,8 +206,6 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 
 | CLI Flag | Env Var | Config File | Default | Description |
 | -------- | ------- | ----------- | ------- | ----------- |
-| `--discovery.announce` | `DISCOVERY_ANNOUNCE` | `discovery.announce` | `false` | announce this peer to the discovery service |
-| `--discovery.announce-ttl` | `DISCOVERY_ANNOUNCE_TTL` | `discovery.announce-ttl` | `1m0s` | TTL for the announcement |
 | `--discovery.bootstrap-servers` | `DISCOVERY_BOOTSTRAP_SERVERS` | `discovery.bootstrap-servers` | `[]` | list of bootstrap servers to use for the DHT |
 | `--discovery.connect-timeout` | `DISCOVERY_CONNECT_TIMEOUT` | `discovery.connect-timeout` | `5s` | timeout for connecting to a peer |
 | `--discovery.discover` | `DISCOVERY_DISCOVER` | `discovery.discover` | `false` | use the libp2p kademlia DHT for discovery |
@@ -225,6 +220,12 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 | `--services.api.disable-leader-proxy` | `SERVICES_API_DISABLE_LEADER_PROXY` | `services.api.disable-leader-proxy` | `false` | Disable the leader proxy. |
 | `--services.api.disabled` | `SERVICES_API_DISABLED` | `services.api.disabled` | `false` | Disable the API. This is ignored when joining as a Raft member. |
 | `--services.api.insecure` | `SERVICES_API_INSECURE` | `services.api.insecure` | `false` | Disable TLS. |
+| `--services.api.libp2p.announce` | `SERVICES_API_LIBP2P_ANNOUNCE` | `services.api.libp2p.announce` | `false` | Announce this peer to the discovery service. |
+| `--services.api.libp2p.bootstrap-servers` | `SERVICES_API_LIBP2P_BOOTSTRAP_SERVERS` | `services.api.libp2p.bootstrap-servers` | `[]` | List of bootstrap servers to use for the DHT. |
+| `--services.api.libp2p.connect-timeout` | `SERVICES_API_LIBP2P_CONNECT_TIMEOUT` | `services.api.libp2p.connect-timeout` | `0s` | Timeout for connecting to a peer. |
+| `--services.api.libp2p.enabled` | `SERVICES_API_LIBP2P_ENABLED` | `services.api.libp2p.enabled` | `false` | Enable the libp2p API. |
+| `--services.api.libp2p.local-addrs` | `SERVICES_API_LIBP2P_LOCAL_ADDRS` | `services.api.libp2p.local-addrs` | `[]` | List of local addresses to announce to the discovery service. |
+| `--services.api.libp2p.rendezvous` | `SERVICES_API_LIBP2P_RENDEZVOUS` | `services.api.libp2p.rendezvous` |  | Pre-shared key to use as a rendezvous point for peer discovery. |
 | `--services.api.listen-address` | `SERVICES_API_LISTEN_ADDRESS` | `services.api.listen-address` | `[::]:8443` | gRPC listen address. |
 | `--services.api.mesh-enabled` | `SERVICES_API_MESH_ENABLED` | `services.api.mesh-enabled` | `false` | Enable and register the MeshAPI. |
 | `--services.api.mtls` | `SERVICES_API_MTLS` | `services.api.mtls` | `false` | Require clients to provide a client certificate. |
