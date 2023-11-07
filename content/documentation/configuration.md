@@ -217,6 +217,8 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 | CLI Flag | Env Var | Config File | Default | Description |
 | -------- | ------- | ----------- | ------- | ----------- |
 | `--services.api.admin-enabled` | `SERVICES_API_ADMIN_ENABLED` | `services.api.admin-enabled` | `false` | Enable and register the AdminAPI. |
+| `--services.api.allowed-origins` | `SERVICES_API_ALLOWED_ORIGINS` | `services.api.allowed-origins` | `[*]` | Allowed origins for CORS. |
+| `--services.api.cors-enabled` | `SERVICES_API_CORS_ENABLED` | `services.api.cors-enabled` | `false` | Enable CORS for the gRPC web server. |
 | `--services.api.disable-leader-proxy` | `SERVICES_API_DISABLE_LEADER_PROXY` | `services.api.disable-leader-proxy` | `false` | Disable the leader proxy. |
 | `--services.api.disabled` | `SERVICES_API_DISABLED` | `services.api.disabled` | `false` | Disable the API. This is ignored when joining as a Raft member. |
 | `--services.api.insecure` | `SERVICES_API_INSECURE` | `services.api.insecure` | `false` | Disable TLS. |
@@ -296,5 +298,6 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 | `--plugins.ldap.user-disabled-value` | `PLUGINS_LDAP_USER_DISABLED_VALUE` | `plugins.ldap.user-disabled-value` |  | Value of the user status attribute that indicates the user is disabled |
 | `--plugins.ldap.user-id-attribute` | `PLUGINS_LDAP_USER_ID_ATTRIBUTE` | `plugins.ldap.user-id-attribute` |  | Attribute to use to identify the user |
 | `--plugins.ldap.user-status-attribute` | `PLUGINS_LDAP_USER_STATUS_ATTRIBUTE` | `plugins.ldap.user-status-attribute` |  | Attribute to use to determine if the user is disabled |
+| `--plugins.mtls.ca-data` | `PLUGINS_MTLS_CA_DATA` | `plugins.mtls.ca-data` |  | Base64 encoded PEM CA data to use to verify client certificates. |
 | `--plugins.mtls.ca-file` | `PLUGINS_MTLS_CA_FILE` | `plugins.mtls.ca-file` |  | Path to a CA file to use to verify client certificates. |
 

@@ -202,6 +202,8 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 | CLI Flag | Config File | Default | Description |
 | -------- | ----------- | ------- | ----------- |
 | `--bridge.<mesh-id>.services.api.admin-enabled` | `bridge.<mesh-id>.services.api.admin-enabled` | `false` | Enable and register the AdminAPI. |
+| `--bridge.<mesh-id>.services.api.allowed-origins` | `bridge.<mesh-id>.services.api.allowed-origins` | `[]` | Allowed origins for CORS. |
+| `--bridge.<mesh-id>.services.api.cors-enabled` | `bridge.<mesh-id>.services.api.cors-enabled` | `false` | Enable CORS for the gRPC web server. |
 | `--bridge.<mesh-id>.services.api.disable-leader-proxy` | `bridge.<mesh-id>.services.api.disable-leader-proxy` | `false` | Disable the leader proxy. |
 | `--bridge.<mesh-id>.services.api.disabled` | `bridge.<mesh-id>.services.api.disabled` | `false` | Disable the API. This is ignored when joining as a Raft member. |
 | `--bridge.<mesh-id>.services.api.insecure` | `bridge.<mesh-id>.services.api.insecure` | `false` | Disable TLS. |
@@ -269,5 +271,6 @@ _TODO: Generic flags need to be provided for external plugin auth providers_
 | `--bridge.<mesh-id>.plugins.ldap.user-disabled-value` | `bridge.<mesh-id>.plugins.ldap.user-disabled-value` |  | Value of the user status attribute that indicates the user is disabled |
 | `--bridge.<mesh-id>.plugins.ldap.user-id-attribute` | `bridge.<mesh-id>.plugins.ldap.user-id-attribute` |  | Attribute to use to identify the user |
 | `--bridge.<mesh-id>.plugins.ldap.user-status-attribute` | `bridge.<mesh-id>.plugins.ldap.user-status-attribute` |  | Attribute to use to determine if the user is disabled |
+| `--bridge.<mesh-id>.plugins.mtls.ca-data` | `bridge.<mesh-id>.plugins.mtls.ca-data` |  | Base64 encoded PEM CA data to use to verify client certificates. |
 | `--bridge.<mesh-id>.plugins.mtls.ca-file` | `bridge.<mesh-id>.plugins.mtls.ca-file` |  | Path to a CA file to use to verify client certificates. |
 
