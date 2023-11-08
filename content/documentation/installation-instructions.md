@@ -40,6 +40,11 @@ The packages below all install the following two binaries:
 - `webmesh-node`: The Webmesh node binary
 - `wmctl`: A CLI for interacting with the Webmesh node
 
+A GUI application for running webmesh nodes is also available [here](https://github.com/webmeshproj/webmesh-app/releases).
+This is only available for amd64 and arm64 architectures.
+Installers are not signed yet, so on macOS you will need to right-click and Open the installer or explicitly allow access via System Preferences.
+On Windows you may see a warning about an unrecognized publisher.
+
 ### Verifying Signature and Checksums
 
 A `checksums.txt` file is available for each release on the [releases page](https://github.com/webmeshproj/webmesh/releases/latest).

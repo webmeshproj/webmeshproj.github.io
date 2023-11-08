@@ -14,6 +14,11 @@ To install the binary, refer to the [installation instructions](/documentation/i
 To run the container image, pull the latest image from the GitHub container registry.
 The examples in this guide will use the image.
 
+## (Optional) Install Webmesh GUI Application
+
+There is a GUI application provided that exposes a limited set of functionality.
+Installers can be found under releases in the [webmesh-app](https://github.com/webmeshproj/webmesh-app/releases) repository.
+
 ## Configuration
 
 Configuration can be supplied via a configuration file, environment variables, or command line flags.
@@ -77,6 +82,8 @@ docker run --rm --privileged ghcr.io/webmeshproj/node:latest \
     --global.disable-ipv6 \
     --mesh.join-addresses=192.168.254.2:8443
 ```
+
+The same arguments can be used to join a node running outside of docker or via the GUI application.
 
 Depending on your docker network configuration, you may need to use the IP address of the bootstrap node instead of its hostname.
 
