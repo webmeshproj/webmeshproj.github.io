@@ -267,5 +267,5 @@ Extract the `zip` file and add the `webmesh-node` and `wmctl` binaries to your `
 
 ## Kubernetes
 
-The prefered method for using Webmesh on Kubernetes is via the [operator](https://github.com/webmeshproj/operator).
-More documentation will be available both here and in the operator repository soon.
+The prefered method for using Webmesh on Kubernetes is via the [CNI](https://github.com/webmeshproj/webmesh-cni).
+An operator is also in development [here](https://github.com/webmeshproj/operator), but is still heavily a work in progress.
